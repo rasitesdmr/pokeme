@@ -2,7 +2,7 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   android_alarm_manager_plus:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: android_alarm_manager_plus
       sha256: "84720c8ad2758aabfbeafd24a8c355d8c8dd3aa52b01eaf3bb827c7210f61a91"
@@ -10,7 +10,7 @@ packages:
     source: hosted
     version: "3.0.4"
   android_intent:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: android_intent
       sha256: "498b451c6be831de2fe032290a8699d2a185c9c6de3bbe6d90db1623a9f62321"
@@ -82,7 +82,7 @@ packages:
     source: hosted
     version: "0.7.10"
   dotted_border:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: dotted_border
       sha256: "108837e11848ca776c53b30bc870086f84b62ed6e01c503ed976e8f8c7df9c04"
@@ -106,7 +106,7 @@ packages:
     source: hosted
     version: "2.1.0"
   file_picker:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: file_picker
       sha256: "4e42aacde3b993c5947467ab640882c56947d9d27342a5b6f2895b23956954a6"
@@ -119,7 +119,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_analog_clock:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_analog_clock
       sha256: "5bf40195f93ff366c73c628e83fc5b380b9639121db77d30a68a12b442e89487"
@@ -135,7 +135,7 @@ packages:
     source: hosted
     version: "2.0.3"
   flutter_local_notifications:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_local_notifications
       sha256: "501ed9d54f1c8c0535b7991bade36f9e7e3b45a2346401f03775c1ec7a3c06ae"
@@ -167,7 +167,7 @@ packages:
     source: hosted
     version: "2.0.17"
   flutter_slidable:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_slidable
       sha256: "19ed4813003a6ff4e9c6bcce37e792a2a358919d7603b2b31ff200229191e44c"
@@ -180,7 +180,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_timezone:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_timezone
       sha256: "06b35132c98fa188db3c4b654b7e1af7ccd01dfe12a004d58be423357605fb24"
@@ -193,7 +193,7 @@ packages:
     source: sdk
     version: "0.0.0"
   intl:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: intl
       sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
@@ -273,7 +273,7 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: a1aa8aaa2542a6bc57e381f132af822420216c80d4781f7aa085ca3229208aaa
@@ -345,7 +345,7 @@ packages:
     source: hosted
     version: "2.1.8"
   provider:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: provider
       sha256: "9a96a0a19b594dbc5bf0f1f27d2bc67d5f95957359b461cd9feb44ed6ae75096"
@@ -353,7 +353,7 @@ packages:
     source: hosted
     version: "6.1.1"
   rxdart:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: rxdart
       sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
@@ -374,7 +374,7 @@ packages:
     source: hosted
     version: "1.10.0"
   sqflite:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: sqflite
       sha256: "591f1602816e9c31377d5f008c2d9ef7b8aca8941c3f89cc5fd9d84da0c38a9a"
