@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokeme/enums/menu_type_enum.dart';
 import 'package:pokeme/providers/menu_selection_provider.dart';
+import 'package:pokeme/screens/clock_screens.dart';
 import 'package:provider/provider.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       home: ChangeNotifierProvider<MenuSelectionProvider>(
         create: (context) =>
             MenuSelectionProvider(menuTypeEnum: MenuTypeEnum.clock),
-        child: Container(),
+        child: ClockScreen(),
       ),
     );
   }
