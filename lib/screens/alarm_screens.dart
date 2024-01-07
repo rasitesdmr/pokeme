@@ -195,6 +195,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
       alarmDateTime: scheduleAlarmDateTime,
       gradientColorIndex: _currentAlarms!.length,
       title: _selectedTitle,
+      isPending: _isRepeatSelected,
     );
 
     if (selectedAlarm == null) {
@@ -347,7 +348,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                     ),
                                     Switch(
                                       onChanged: (bool value) {},
-                                      value: true,
+                                      value: alarm.isPending!,
                                       activeColor: Colors.white,
                                     ),
                                   ],
