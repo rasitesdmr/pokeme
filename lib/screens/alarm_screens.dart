@@ -74,6 +74,15 @@ class _AlarmScreenState extends State<AlarmScreen> {
                 children: [
                   TextButton(
                     onPressed: () async {
+                      final now = DateTime.now();
+
+                      final selectedDate = await showDatePicker(
+                          context: context,
+                          initialDate: selectedAlarm?.alarmDateTime ?? now,
+                          firstDate: now,
+                          lastDate: DateTime(2101),
+                          locale: const Locale('tr', 'TR'));
+
                       var selectedTime = await showTimePicker(
                         context: context,
                         initialTime: TimeOfDay.now(),
@@ -86,11 +95,10 @@ class _AlarmScreenState extends State<AlarmScreen> {
                         },
                       );
                       if (selectedTime != null) {
-                        final now = DateTime.now();
                         var selectedDateTime = DateTime(
-                          now.year,
-                          now.month,
-                          now.day,
+                          selectedDate!.year,
+                          selectedDate.month,
+                          selectedDate.day,
                           selectedTime.hour,
                           selectedTime.minute,
                         );

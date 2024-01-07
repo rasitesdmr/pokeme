@@ -1,6 +1,7 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pokeme/enums/menu_type_enum.dart';
 import 'package:pokeme/notifications/alarm_notification_manager.dart';
 import 'package:pokeme/providers/menu_selection_provider.dart';
@@ -31,6 +32,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      localizationsDelegates: const [
+        // Yerelleştirme desteği ekleniyor
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('tr', 'TR'), // Türkçe desteği
+        // Diğer desteklenen dilleri buraya ekleyebilirsiniz
+      ],
       home: ChangeNotifierProvider<MenuSelectionProvider>(
         create: (context) =>
             MenuSelectionProvider(menuTypeEnum: MenuTypeEnum.clock),
