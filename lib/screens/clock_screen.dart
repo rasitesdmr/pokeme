@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokeme/enums/menu_type_enum.dart';
 import 'package:pokeme/providers/menu_selection_provider.dart';
+import 'package:pokeme/screens/alarm_screens.dart';
 import 'package:pokeme/widgets/analog_clock_builder.dart';
 import 'package:pokeme/widgets/navigation_control_builder.dart';
 import 'package:pokeme/widgets/real_time_clock_widget.dart';
@@ -57,7 +58,7 @@ class _ClockScreenState extends State<ClockScreen> {
               builder: (BuildContext context,
                   MenuSelectionProvider menuSelectionProvider, Widget? child) {
                 if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.alarm) {
-                  return Container();
+                  return AlarmScreen();
                 }
                 return Container(
                   padding:

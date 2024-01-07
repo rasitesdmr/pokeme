@@ -82,7 +82,7 @@ class AlarmNotificationManager {
       channelDescription: 'your_channel_description',
       importance: Importance.max,
       priority: Priority.high,
-      sound: UriAndroidNotificationSound(customSoundPath!),
+      sound: RawResourceAndroidNotificationSound(customSoundPath!),
       enableVibration: true,
       playSound: true,
       vibrationPattern: Int64List.fromList([0, 1000, 500, 1000]),
