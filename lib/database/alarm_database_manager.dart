@@ -5,7 +5,7 @@ const String tableAlarm = 'alarm';
 const String columnId = 'id';
 const String columnTitle = 'title';
 const String columnDateTime = 'alarmDateTime';
-const String columnPending = 'isPending';
+const String columnPending = 'pending';
 const String columnColorIndex = 'gradientColorIndex';
 
 class AlarmDatabaseManager {
