@@ -30,6 +30,9 @@ class NavigationControlBuilder {
             buildIconButton(
               icon: Icon(
                 Icons.watch_later,
+                color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.clock
+                    ? Colors.blue
+                    : Colors.white,
                 size: 24,
               ),
               color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.clock
@@ -41,7 +44,13 @@ class NavigationControlBuilder {
               },
             ),
             buildIconButton(
-              icon: Icon(Icons.alarm, size: 24),
+              icon: Icon(
+                Icons.alarm,
+                size: 24,
+                color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.alarm
+                    ? Colors.blue
+                    : Colors.white,
+              ),
               color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.alarm
                   ? Colors.blue
                   : Colors.white,
@@ -66,18 +75,22 @@ class NavigationControlBuilder {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        IconButton(
-          onPressed: onPressed,
-          icon: icon,
-          color: color,
-          padding: EdgeInsets.zero,
-          constraints: BoxConstraints(),
+        InkResponse(
+          onTap: onPressed,
+          child: Padding(
+            padding:
+                const EdgeInsets.all(8.0), // Gerektiği kadar padding ekleyin
+            child: icon,
+          ),
+          highlightColor: Colors.transparent,
+          splashColor: Colors.blue,
+          radius: 20.0,
         ),
-        SizedBox(height: 5),
         Text(
           label,
           style: TextStyle(color: color, fontSize: 12),
         ),
+        SizedBox(height: 8),
       ],
     );
   }
