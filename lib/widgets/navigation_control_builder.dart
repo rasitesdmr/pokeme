@@ -33,7 +33,7 @@ class NavigationControlBuilder {
                 color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.clock
                     ? Colors.blue
                     : Colors.white,
-                size: 24,
+                size: 28,
               ),
               color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.clock
                   ? Colors.blue
@@ -46,7 +46,7 @@ class NavigationControlBuilder {
             buildIconButton(
               icon: Icon(
                 Icons.alarm,
-                size: 24,
+                size: 28,
                 color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.alarm
                     ? Colors.blue
                     : Colors.white,
@@ -57,6 +57,22 @@ class NavigationControlBuilder {
               label: 'Alarm',
               onPressed: () {
                 updateMenu(context, MenuTypeEnum.alarm);
+              },
+            ),
+            buildIconButton(
+              icon: Icon(
+                Icons.today_sharp,
+                size: 28,
+                color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.todo
+                    ? Colors.blue
+                    : Colors.white,
+              ),
+              color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.todo
+                  ? Colors.blue
+                  : Colors.white,
+              label: 'Alarm',
+              onPressed: () {
+                updateMenu(context, MenuTypeEnum.todo);
               },
             ),
           ],
@@ -79,18 +95,17 @@ class NavigationControlBuilder {
           onTap: onPressed,
           child: Padding(
             padding:
-                const EdgeInsets.all(8.0), // Gerektiği kadar padding ekleyin
+                const EdgeInsets.all(4.0), // Gerektiği kadar padding ekleyin
             child: icon,
           ),
           highlightColor: Colors.transparent,
           splashColor: Colors.blue,
-          radius: 20.0,
+          radius: 10.0,
         ),
         Text(
           label,
-          style: TextStyle(color: color, fontSize: 12),
+          style: TextStyle(color: color, fontSize: 14),
         ),
-        SizedBox(height: 8),
       ],
     );
   }
