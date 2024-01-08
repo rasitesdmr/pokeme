@@ -10,12 +10,12 @@ const String columnColorIndex = 'gradientColorIndex';
 
 class AlarmDatabaseManager {
   static Database? _database;
-  static AlarmDatabaseManager? _alarmHelper;
+  static AlarmDatabaseManager? _alarmDatabaseManager;
 
   AlarmDatabaseManager._createInstance();
   factory AlarmDatabaseManager() {
-    _alarmHelper ??= AlarmDatabaseManager._createInstance();
-    return _alarmHelper!;
+    _alarmDatabaseManager ??= AlarmDatabaseManager._createInstance();
+    return _alarmDatabaseManager!;
   }
 
   Future<Database> get database async {
