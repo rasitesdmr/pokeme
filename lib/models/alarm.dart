@@ -2,21 +2,21 @@ class Alarm {
   int? id;
   String? title;
   DateTime? alarmDateTime;
-  bool? isPending;
+  int? status;
   int? gradientColorIndex;
 
   Alarm(
       {this.id,
       this.title,
       this.alarmDateTime,
-      this.isPending,
+      this.status,
       this.gradientColorIndex});
 
   factory Alarm.fromMap(Map<String, dynamic> json) => Alarm(
         id: json["id"],
         title: json["title"],
         alarmDateTime: DateTime.parse(json["alarmDateTime"]),
-        isPending: json["isPending"] == 1,
+        status: json["status"],
         gradientColorIndex: json["gradientColorIndex"],
       );
 
@@ -24,7 +24,7 @@ class Alarm {
         "id": id,
         "title": title,
         "alarmDateTime": alarmDateTime!.toIso8601String(),
-        "isPending": isPending == true ? 1 : 0,
+        "status": status,
         "gradientColorIndex": gradientColorIndex,
       };
 }

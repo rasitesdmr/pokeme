@@ -5,7 +5,7 @@ const String tableAlarm = 'alarm';
 const String columnId = 'id';
 const String columnTitle = 'title';
 const String columnDateTime = 'alarmDateTime';
-const String columnPending = 'pending';
+const String columnStatus = 'status';
 const String columnColorIndex = 'gradientColorIndex';
 
 class AlarmDatabaseManager {
@@ -29,14 +29,21 @@ class AlarmDatabaseManager {
 
     var database = await openDatabase(
       path,
-      version: 1,
+      version: 2,
+      onUpgrade: (Database db, int oldVersion, int newVersion) async {
+        if (oldVersion < 2) {
+          // Eğer eski sürüm 1 ise, yeni sütunları ekleyin
+          await db.execute(
+              'ALTER TABLE $tableAlarm ADD COLUMN $columnStatus INTEGER');
+        }
+      },
       onCreate: (db, version) {
         db.execute('''
           create table $tableAlarm ( 
           $columnId integer primary key autoincrement, 
           $columnTitle text not null,
           $columnDateTime text not null,
-          $columnPending integer,
+          $columnStatus integer,
           $columnColorIndex integer)
         ''');
       },

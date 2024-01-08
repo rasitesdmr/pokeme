@@ -20,7 +20,7 @@ class AlarmScreen extends StatefulWidget {
 class _AlarmScreenState extends State<AlarmScreen> {
   DateTime? _alarmTime;
   late String _alarmTimeString;
-  bool _isRepeatSelected = false;
+  int? _alarmStatus = 0;
   AlarmDatabaseManager _alarmDatabaseManager = AlarmDatabaseManager();
   Future<List<Alarm>>? _alarms;
   List<Alarm>? _currentAlarms;
@@ -121,10 +121,10 @@ class _AlarmScreenState extends State<AlarmScreen> {
                     trailing: Switch(
                       onChanged: (value) {
                         setModalState(() {
-                          _isRepeatSelected = value;
+                          _alarmStatus = value == true ? 1 : 0;
                         });
                       },
-                      value: _isRepeatSelected,
+                      value: _alarmStatus == 1 ? true : false,
                     ),
                   ),
                   ListTile(
@@ -195,7 +195,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
       alarmDateTime: scheduleAlarmDateTime,
       gradientColorIndex: _currentAlarms!.length,
       title: _selectedTitle,
-      isPending: _isRepeatSelected,
+      status: _alarmStatus,
     );
 
     if (selectedAlarm == null) {
@@ -348,7 +348,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                     ),
                                     Switch(
                                       onChanged: (bool value) {},
-                                      value: alarm.isPending!,
+                                      value: alarm.status == 1 ? true : false,
                                       activeColor: Colors.white,
                                     ),
                                   ],
