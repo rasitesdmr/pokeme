@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pokeme/database/todo_database_manager.dart';
+import 'package:pokeme/models/todo.dart';
 
 class TodoScreen extends StatefulWidget {
   @override
@@ -7,6 +9,9 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
+  TodoDatabaseManager _todoDatabaseManager = TodoDatabaseManager();
+  DateTime? _alarmTime;
+  List<Todo>? _currentAlarms;
   late List<bool> _expandedList;
 
   final List<Map<String, dynamic>> _todos = [
