@@ -8,6 +8,8 @@ import 'package:pokeme/widgets/navigation_control_builder.dart';
 import 'package:pokeme/widgets/real_time_clock_widget.dart';
 import 'package:provider/provider.dart';
 
+import 'pomodoro_screen.dart';
+
 class ClockScreen extends StatefulWidget {
   const ClockScreen({super.key});
 
@@ -63,6 +65,9 @@ class _ClockScreenState extends State<ClockScreen> {
                 }
                 if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.stopwatch) {
                   return StopWatchScreen();
+                }
+                if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.pomodoro) {
+                  return PomodoroScreen();
                 }
                 return Container(
                   padding:

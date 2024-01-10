@@ -91,6 +91,22 @@ class NavigationControlBuilder {
                 updateMenu(context, MenuTypeEnum.stopwatch);
               },
             ),
+            buildIconButton(
+              icon: Icon(
+                Icons.book,
+                size: 28,
+                color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.pomodoro
+                    ? Colors.blue
+                    : Colors.white,
+              ),
+              color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.pomodoro
+                  ? Colors.blue
+                  : Colors.white,
+              label: 'StopWatch',
+              onPressed: () {
+                updateMenu(context, MenuTypeEnum.pomodoro);
+              },
+            ),
           ],
         ),
       ),
