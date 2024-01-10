@@ -146,17 +146,154 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
     );
   }
 
+  void showSettingsDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Color(0xFF3D737F),
+          title: const Center(
+            child: Text(
+              'Ayarlar',
+              style: TextStyle(
+                color: Color(0xFFCEC7BF),
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                TextFormField(
+                  controller: pomodoroDurationController,
+                  decoration: const InputDecoration(
+                    labelText: 'Pomodoro Süresi (20-60 dak)',
+                    labelStyle: TextStyle(
+                      color: Color(0xFFCEC7BF),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    contentPadding: EdgeInsets.only(top: 20.0),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFCEC7BF),
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFCEC7BF),
+                      ),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  style: const TextStyle(color: Color(0xFFCEC7BF)),
+                ),
+                TextFormField(
+                  controller: shortBreakDurationController,
+                  decoration: const InputDecoration(
+                    labelText: 'Kısa Ara Süresi (5-20 dak)',
+                    labelStyle: TextStyle(
+                      color: Color(0xFFCEC7BF),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    contentPadding: EdgeInsets.only(top: 20.0),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFCEC7BF),
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCEC7BF)),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  style: const TextStyle(color: Color(0xFFCEC7BF)),
+                ),
+                TextFormField(
+                  controller: longBreakDurationController,
+                  decoration: const InputDecoration(
+                    labelText: 'Uzun Ara Süresi (15-40 dak)',
+                    labelStyle: TextStyle(
+                      color: Color(0xFFCEC7BF),
+                      fontWeight: FontWeight.w500,
+                    ),
+                    contentPadding: EdgeInsets.only(top: 20.0),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFCEC7BF),
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xFFCEC7BF)),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  style: const TextStyle(color: Color(0xFFCEC7BF)),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Center(
+                child: Text(
+                  'Tamam',
+                  style: TextStyle(
+                    color: Color(0xFFCEC7BF),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              onPressed: () {
+                int newPomodoroDuration =
+                    int.tryParse(pomodoroDurationController.text) ?? 25;
+                int newShortBreakDuration =
+                    int.tryParse(shortBreakDurationController.text) ?? 5;
+                int newLongBreakDuration =
+                    int.tryParse(longBreakDurationController.text) ?? 15;
+
+                if ((newPomodoroDuration < 20 || newPomodoroDuration > 60) ||
+                    (newShortBreakDuration < 5 || newShortBreakDuration > 20) ||
+                    (newLongBreakDuration < 15 || newLongBreakDuration > 40)) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Center(
+                        child: Text('Lütfen geçerli bir dakika belirleyiniz'),
+                      ),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                } else {
+                  setState(() {
+                    selectedMinutes = newPomodoroDuration;
+                    myDuration = Duration(minutes: newPomodoroDuration);
+                    if (currentMode == 'Kısa Ara') {
+                      myDuration = Duration(minutes: newShortBreakDuration);
+                    } else if (currentMode == 'Uzun Ara') {
+                      myDuration = Duration(minutes: newLongBreakDuration);
+                    }
+                  });
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     String strDigits(int n) => n.toString().padLeft(2, '0');
-    final hour = strDigits(myDuration.inHours.remainder(24));
     final minutes = strDigits(myDuration.inMinutes.remainder(60));
     final seconds = strDigits(myDuration.inSeconds.remainder(60));
 
     return Scaffold(
         backgroundColor: const Color(0xFF07161B),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 50, 0, 120),
+          padding: const EdgeInsets.fromLTRB(0, 70, 0, 120),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -200,6 +337,11 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                             ),
                           ),
                           const SizedBox(height: 5),
+                          const Text(
+                            'Pomodoro',
+                            style: TextStyle(
+                                fontSize: 12, color: Color(0xFFCEC7BF)),
+                          ),
                         ],
                       ),
                       Column(
@@ -236,6 +378,11 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                             ),
                           ),
                           const SizedBox(height: 5),
+                          const Text(
+                            'Kısa Ara',
+                            style: TextStyle(
+                                fontSize: 12, color: Color(0xFFCEC7BF)),
+                          ),
                         ],
                       ),
                       Column(
@@ -272,6 +419,11 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                             ),
                           ),
                           const SizedBox(height: 5),
+                          const Text(
+                            'Uzun Ara',
+                            style: TextStyle(
+                                fontSize: 12, color: Color(0xFFCEC7BF)),
+                          ),
                         ],
                       ),
                     ],
@@ -281,11 +433,11 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '$hour:$minutes:$seconds',
+                        '$minutes:$seconds',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Color(0xFFCEC7BF),
-                          fontSize: 60,
+                          fontSize: 90,
                         ),
                       ),
                     ],
@@ -323,6 +475,16 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                             fontSize: 30,
                             color: Color(0xFFCEC7BF),
                           ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.settings,
+                            color: Color(0xFFCEC7BF)),
+                        onPressed: showSettingsDialog,
+                        iconSize: 40,
+                        constraints: const BoxConstraints(
+                          minHeight: 75,
+                          minWidth: 75,
                         ),
                       ),
                     ],
