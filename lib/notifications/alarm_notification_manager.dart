@@ -12,10 +12,12 @@ class AlarmNotificationManager {
 
   // Bildirim tıklama işleyicisi
   static void handleNotificationTap(NotificationResponse notificationResponse) {
-    if (notificationResponse.actionId == 'stop_alarm') {
+    if (notificationResponse.actionId == 'Durdur') {
       // Alarmı durdurma işlemi...
+      print("Alarm Durdur");
       _flutterLocalNotificationsPlugin.cancel(notificationResponse.id!);
     } else {
+      print('Alarm Devam');
       // Bildirime basıldığında AlarmStopPage'e git...
       onClickNotification.add(notificationResponse.payload!);
       navigatorKey.currentState

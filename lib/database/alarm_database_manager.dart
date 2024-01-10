@@ -66,7 +66,9 @@ class AlarmDatabaseManager {
     for (var element in result) {
       var alarmInfo = Alarm.fromMap(element);
       _alarms.add(alarmInfo);
-      print(_alarms.first.toMap());
+      for (var alarm in _alarms) {
+        print(alarm.toMap());
+      }
     }
 
     return _alarms;

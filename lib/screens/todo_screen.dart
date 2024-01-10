@@ -58,6 +58,7 @@ class _TodoScreenState extends State<TodoScreen> {
     }
   }
 
+  // Kaydetme bottom sheet
   void openTodoBottomSheet({Todo? selectedTodo}) {
     _selectedTodoTitle = selectedTodo?.title ?? '';
     _selectedText1 = selectedTodo?.text1 ?? '';
@@ -159,7 +160,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Todo title: $_selectedTodoTitle',
+                            'Başlık: $_selectedTodoTitle',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -174,7 +175,7 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Edit Title'),
+                                  title: Text('Başlık'),
                                   content: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -195,7 +196,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       ),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Enter todo title',
+                                        hintText: 'Başlık Ekle',
                                       ),
                                     ),
                                   ),
@@ -230,7 +231,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Text1: $_selectedText1',
+                            'Görev 1: $_selectedText1',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -245,7 +246,7 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Edit Text1'),
+                                  title: Text('Görev Ekle'),
                                   content: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -266,7 +267,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       ),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Text1',
+                                        hintText: 'Görev 1',
                                       ),
                                     ),
                                   ),
@@ -301,7 +302,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Text2: $_selectedText2',
+                            'Görev 2: $_selectedText2',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -316,7 +317,7 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Edit Text2'),
+                                  title: Text('Görev Ekle'),
                                   content: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -337,7 +338,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       ),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Text2',
+                                        hintText: 'Görev 2',
                                       ),
                                     ),
                                   ),
@@ -372,7 +373,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Text3: $_selectedText3',
+                            'Görev 3: $_selectedText3',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -387,7 +388,7 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Edit Text3'),
+                                  title: Text('Görev Ekle'),
                                   content: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -408,7 +409,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       ),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Text3',
+                                        hintText: 'Görev 3',
                                       ),
                                     ),
                                   ),
@@ -493,6 +494,12 @@ class _TodoScreenState extends State<TodoScreen> {
     loadTodos();
   }
 
+  void deleteTodo(int? id) {
+    _todoDatabaseManager.deleteTodoById(id);
+    Navigator.pop(context);
+    loadTodos();
+  }
+
   Widget buildExpandableContent(Todo todo) {
     List<Widget> contentList = [];
 
@@ -551,8 +558,7 @@ class _TodoScreenState extends State<TodoScreen> {
   }
 
   Future<void> scheduleAlarm(DateTime scheduledNotificationDateTime) async {
-    var alarmId =
-        0; // Bu ID'yi her alarm için benzersiz olacak şekilde ayarlayın.
+    var alarmId = 2;
     await AndroidAlarmManager.oneShotAt(
       scheduledNotificationDateTime,
       alarmId,
@@ -565,13 +571,14 @@ class _TodoScreenState extends State<TodoScreen> {
   @pragma('vm:entry-point')
   static void alarmCallback() {
     AlarmNotificationManager.displayAlarmWithAction(
-      title: "Alarm",
-      body: "Alarmınız çalıyor!",
+      title: "Todo",
+      body: "Todo Zamanı",
       payload: 'Alarm Payload',
       customSoundPath: selectedSoundPath,
     );
   }
 
+  // Düzenleme status bottom sheet
   void openTextStatusBottomSheet({Todo? selectedTodo}) {
     if (selectedTodo != null) {
       _selectedText1Status = selectedTodo.text1Status!;
@@ -600,30 +607,63 @@ class _TodoScreenState extends State<TodoScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                          '${selectedTodo!.alarmDateTime?.day}/${selectedTodo!.alarmDateTime?.month}/${selectedTodo!.alarmDateTime?.year}'),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                          '${selectedTodo!.alarmDateTime?.hour}:${selectedTodo!.alarmDateTime?.minute}'),
+                    ],
+                  ),
                   if (selectedTodo?.text1?.isNotEmpty == true)
-                    buildStatusItem('Text1 Status', _selectedText1Status,
-                        (newValue) {
+                    buildStatusItem('Görev 1 : ${selectedTodo?.text1}',
+                        _selectedText1Status, (newValue) {
                       _selectedText1Status = newValue;
                       setModalState(() {});
                     }),
                   if (selectedTodo?.text2?.isNotEmpty == true)
-                    buildStatusItem('Text2 Status', _selectedText2Status,
-                        (newValue) {
+                    buildStatusItem('Görev 2 : ${selectedTodo?.text2}',
+                        _selectedText2Status, (newValue) {
                       _selectedText2Status = newValue;
                       setModalState(() {});
                     }),
                   if (selectedTodo?.text3?.isNotEmpty == true)
-                    buildStatusItem('Text3 Status', _selectedText3Status,
-                        (newValue) {
-                      _selectedText3Status = newValue;
-                      setModalState(() {});
-                    }),
-                  ElevatedButton(
-                    child: Text('Save Changes'),
-                    onPressed: () {
-                      updateTodo(selectedTodo!);
-                    },
-                  ),
+                    buildStatusItem(
+                      'Görev 3 : ${selectedTodo?.text3}',
+                      _selectedText3Status,
+                      (newValue) {
+                        _selectedText3Status = newValue;
+                        setModalState(() {});
+                      },
+                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        child: Text('Delete',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(primary: Colors.red),
+                        onPressed: () {
+                          deleteTodo(selectedTodo?.id);
+                        },
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                        child:
+                            Text('Save', style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(primary: Colors.blue),
+                        onPressed: () {
+                          updateTodo(selectedTodo!);
+                        },
+                      ),
+                    ],
+                  )
                 ],
               ),
             );
@@ -640,6 +680,7 @@ class _TodoScreenState extends State<TodoScreen> {
       children: [
         Text(title),
         Switch(
+          activeTrackColor: Colors.green,
           value: status == 1,
           onChanged: (bool newValue) {
             onStatusChanged(newValue ? 1 : 0);

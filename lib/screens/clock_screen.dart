@@ -3,6 +3,7 @@ import 'package:pokeme/enums/menu_type_enum.dart';
 import 'package:pokeme/providers/menu_selection_provider.dart';
 import 'package:pokeme/screens/alarm_screens.dart';
 import 'package:pokeme/screens/stopwatch_screens.dart';
+import 'package:pokeme/screens/todo_screen.dart';
 import 'package:pokeme/widgets/analog_clock_builder.dart';
 import 'package:pokeme/widgets/navigation_control_builder.dart';
 import 'package:pokeme/widgets/real_time_clock_widget.dart';
@@ -63,14 +64,16 @@ class _ClockScreenState extends State<ClockScreen> {
                 if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.alarm) {
                   return AlarmScreen();
                 }
-                if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.stopwatch) {
+                if (menuSelectionProvider.menuTypeEnum ==
+                    MenuTypeEnum.stopwatch) {
                   return StopWatchScreen();
                 }
-                if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.pomodoro) {
+                if (menuSelectionProvider.menuTypeEnum ==
+                    MenuTypeEnum.pomodoro) {
                   return PomodoroScreen();
                 }
                 if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.todo) {
-                  return PomodoroScreen();
+                  return TodoScreen();
                 }
                 return Container(
                   padding:

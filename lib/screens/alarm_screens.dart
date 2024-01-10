@@ -76,13 +76,6 @@ class _AlarmScreenState extends State<AlarmScreen> {
                     onPressed: () async {
                       final now = DateTime.now();
 
-                      final selectedDate = await showDatePicker(
-                          context: context,
-                          initialDate: selectedAlarm?.alarmDateTime ?? now,
-                          firstDate: now,
-                          lastDate: DateTime(2101),
-                          locale: const Locale('tr', 'TR'));
-
                       var selectedTime = await showTimePicker(
                         context: context,
                         initialTime: TimeOfDay.now(),
@@ -96,9 +89,9 @@ class _AlarmScreenState extends State<AlarmScreen> {
                       );
                       if (selectedTime != null) {
                         var selectedDateTime = DateTime(
-                          selectedDate!.year,
-                          selectedDate.month,
-                          selectedDate.day,
+                          now.year,
+                          now.month,
+                          now.day,
                           selectedTime.hour,
                           selectedTime.minute,
                         );
@@ -318,6 +311,14 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                   children: <Widget>[
                                     Text(
                                       alarmTime,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'avenir',
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    Text(
+                                      '${alarm.alarmDateTime?.day}',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'avenir',

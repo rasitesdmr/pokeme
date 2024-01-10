@@ -86,7 +86,7 @@ class TodoDatabaseManager {
     return result;
   }
 
-  Future<int> deleteTodoById(int id) async {
+  Future<int> deleteTodoById(int? id) async {
     var db = await this.database;
     var result = await db.delete(
       tableTodo,
