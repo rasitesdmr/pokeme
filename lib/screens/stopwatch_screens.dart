@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StopWatchScreen extends StatefulWidget {
@@ -11,14 +9,11 @@ class StopWatchScreen extends StatefulWidget {
 }
 
 class _StopWatchScreenState extends State<StopWatchScreen> {
-  // business logic of the app
   int seconds = 0, minutes = 0, hours = 0;
   String digitSeconds = "00", digitminutes = "00", digitHours = "00";
   Timer? timer;
   bool started = false;
   List laps = [];
-
-// Creating the stop timer function
 
   void stop() {
     timer!.cancel();
@@ -27,19 +22,15 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
     });
   }
 
-// Creating the reset function
-
   void reset() {
     timer!.cancel();
     setState(() {
       seconds = 0;
       minutes = 0;
       hours = 0;
-
       digitSeconds = "00";
       digitminutes = "00";
       digitHours = "00";
-
       started = false;
     });
   }
@@ -50,8 +41,6 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
       laps.add(lap);
     });
   }
-
-// Creating the start timer fonction
 
   void start() {
     started = true;
@@ -85,50 +74,78 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
     });
   }
 
+  void clearLaps() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Clear All Laps"),
+          content: Text("Are you sure you want to clear all laps?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Kullanıcı onayı iptal etti.
+              },
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  laps.clear(); // Tüm tur verilerini temizle
+                });
+                Navigator.of(context).pop(); // Kullanıcı onayı tamamlandı.
+              },
+              child: Text("Clear"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 32, vertical: 64),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Scaffold(
-            backgroundColor: Color(0xFF2D2F41),
-            body: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
+    return Scaffold(
+      backgroundColor: const Color(0xFF2D2F41),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  "StopWatch",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Center(
+                child: Text(
+                  "$digitHours:$digitminutes:$digitSeconds",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 70.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                height: 300.0,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF32F68), // Tur renk
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Center(
-                        child: Text(
-                      "StopWatch App",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28.0,
-                          fontWeight: FontWeight.bold),
-                    )),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Center(
-                      child: Text(
-                        "$digitHours:$digitminutes:$digitSeconds",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 70.0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 300.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF32F68),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      // now let's add a list
+                    Expanded(
                       child: ListView.builder(
                         itemCount: laps.length,
                         itemBuilder: (context, index) {
@@ -145,7 +162,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                                   ),
                                 ),
                                 Text(
-                                  "Tur n°${index + 1}",
+                                  "${index + 1}. Tour",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16.0,
@@ -160,57 +177,71 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                     SizedBox(
                       height: 20.0,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              (!started) ? start() : stop();
-                            },
-                            shape: const StadiumBorder(
-                                side: BorderSide(color: Colors.purple)),
-                            child: Text(
-                              (!started) ? "Start" : "Pause",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        IconButton(
-                          color: Colors.white,
-                          onPressed: () {
-                            addLaps();
-                          },
-                          icon: Icon(Icons.flag),
-                        ),
-                        SizedBox(
-                          width: 8.0,
-                        ),
-                        Expanded(
-                          child: RawMaterialButton(
-                            onPressed: () {
-                              reset();
-                            },
-                            fillColor: Colors.purple,
-                            shape: const StadiumBorder(
-                                side: BorderSide(color: Colors.purple)),
-                            child: Text(
-                              "Reset",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
+                    // Silme tuşu ekleniyor
+                    IconButton(
+                      color: Colors.redAccent,
+                      onPressed: () {
+                        clearLaps();
+                      },
+                      icon: Icon(Icons.delete),
+                      tooltip: "Clear All Laps",
+                    ),
                   ],
                 ),
               ),
-            ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: RawMaterialButton(
+                      onPressed: () {
+                        (!started) ? start() : stop();
+                      },
+                      shape: const StadiumBorder(
+                        side: BorderSide(color: Colors.purple),
+                      ),
+                      child: Text(
+                        (!started) ? "Start" : "Pause",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8.0,
+                  ),
+                  IconButton(
+                    color: Colors.white,
+                    onPressed: () {
+                      addLaps();
+                    },
+                    icon: Icon(Icons.flag),
+                  ),
+                  SizedBox(
+                    width: 8.0,
+                  ),
+                  Expanded(
+                    child: RawMaterialButton(
+                      onPressed: () {
+                        reset();
+                      },
+                      fillColor: const Color(0xFF6B2FBB), // Reset rengi
+                      shape: const StadiumBorder(
+                        side: BorderSide(color: Colors.purple),
+                      ),
+                      child: Text(
+                        "Reset",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
