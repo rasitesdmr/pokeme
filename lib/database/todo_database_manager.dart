@@ -57,9 +57,10 @@ class TodoDatabaseManager {
     return database;
   }
 
-  Future<int> insertTodo(Todo todo) async {
+  Future<int> addTodo(Todo todo) async {
     var db = await this.database;
     var result = await db.insert(tableTodo, todo.toMap());
+    print(todo.toMap());
     return result;
   }
 
@@ -68,6 +69,9 @@ class TodoDatabaseManager {
     var result = await db.query(tableTodo);
     List<Todo> todos =
         result.isNotEmpty ? result.map((c) => Todo.fromMap(c)).toList() : [];
+    for (var todo in todos) {
+      print(todo.toMap());
+    }
     return todos;
   }
 
@@ -82,7 +86,7 @@ class TodoDatabaseManager {
     return result;
   }
 
-  Future<int> deleteTodo(int id) async {
+  Future<int> deleteTodoById(int id) async {
     var db = await this.database;
     var result = await db.delete(
       tableTodo,
