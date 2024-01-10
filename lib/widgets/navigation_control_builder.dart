@@ -70,7 +70,7 @@ class NavigationControlBuilder {
               color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.todo
                   ? Colors.blue
                   : Colors.white,
-              label: 'Alarm',
+              label: 'Todo',
               onPressed: () {
                 updateMenu(context, MenuTypeEnum.todo);
               },

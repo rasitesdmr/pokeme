@@ -69,6 +69,9 @@ class _ClockScreenState extends State<ClockScreen> {
                 if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.pomodoro) {
                   return PomodoroScreen();
                 }
+                if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.todo) {
+                  return PomodoroScreen();
+                }
                 return Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
