@@ -13,7 +13,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
   String digitSeconds = "00", digitminutes = "00", digitHours = "00";
   Timer? timer;
   bool started = false;
-  List laps = [];
+  List<Map<String, dynamic>> laps = [];
 
   void stop() {
     timer!.cancel();
@@ -32,15 +32,66 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
       digitminutes = "00";
       digitHours = "00";
       started = false;
+      laps.clear();
     });
   }
 
+  String _calculateTotalTime() {
+    int totalSeconds = laps.fold<int>(0, (previous, lap) => previous + (lap['tur_suresi'] as int? ?? 0));
+    int totalHours = totalSeconds ~/ 3600;
+    int totalMinutes = (totalSeconds % 3600) ~/ 60;
+    int totalRemainingSeconds = totalSeconds % 60;
+
+    return "$totalHours:${totalMinutes.toString().padLeft(2, '0')}:${totalRemainingSeconds.toString().padLeft(2, '0')}";
+  }
+
   void addLaps() {
-    String lap = "$digitHours:$digitminutes:$digitSeconds";
+    int currentSeconds = seconds + (60 * minutes) + (3600 * hours);
+
+    String lapTime = _formatTime(currentSeconds);
+
+    Map<String, dynamic> lapData = {
+      'tur': laps.length + 1,
+      'tur_suresi': (laps.isEmpty) ? "0:00:00" : _calculateDifference(lapTime),
+      'toplam_sure': (laps.isEmpty) ? "0:00:00" : lapTime,
+    };
+
     setState(() {
-      laps.add(lap);
+      laps.add(lapData);
     });
   }
+
+  String _calculateDifference(String currentLapTime) {
+    int currentSeconds = _calculateSeconds(currentLapTime);
+
+    String previousLapTime = laps.last['toplam_sure'];
+    int previousSeconds = _calculateSeconds(previousLapTime);
+
+    int differenceSeconds = currentSeconds - previousSeconds;
+
+    return _formatTime(differenceSeconds);
+  }
+
+  int _calculateSeconds(String lapTime) {
+    List<String> timeParts = lapTime.split(':');
+    int hours = int.parse(timeParts[0]);
+    int minutes = int.parse(timeParts[1]);
+    int seconds = int.parse(timeParts[2]);
+
+    return seconds + (60 * minutes) + (3600 * hours);
+  }
+
+
+  String _formatTime(num seconds) {
+    int hours = seconds ~/ 3600;
+    int minutes = (seconds % 3600) ~/ 60;
+    int remainingSeconds = seconds.toInt() % 60;
+
+    return "$hours:${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}";
+  }
+
+
+
 
   void start() {
     started = true;
@@ -85,6 +136,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Kullanıcı onayı iptal etti.
+
               },
               child: Text("Cancel"),
             ),
@@ -116,7 +168,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
             children: [
               Center(
                 child: Text(
-                  "StopWatch",
+                  "Kronometre",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 28.0,
@@ -143,52 +195,77 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                   color: const Color(0xFF32F68), // Tur renk
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: laps.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "${laps[index]}",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                                Text(
-                                  "${index + 1}. Tour",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                              ],
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Tur",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
                             ),
-                          );
-                        },
+                          ),
+                          Text(
+                            "Tur süresi",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            "Toplam Süre",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    // Silme tuşu ekleniyor
-                    IconButton(
-                      color: Colors.redAccent,
-                      onPressed: () {
-                        clearLaps();
-                      },
-                      icon: Icon(Icons.delete),
-                      tooltip: "Clear All Laps",
-                    ),
-                  ],
+                      Divider(color: Colors.white), // Başlıkların altına çizgi ekliyoruz
+                      ...laps.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final lap = entry.value;
+
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${lap['tur']}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            Text(
+                              "${lap['tur_suresi']} saniye",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            Text(
+                              "${lap['toplam_sure'] ?? '0:00:00'}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    ],
+                  ),
                 ),
               ),
+
               SizedBox(
                 height: 20.0,
               ),
@@ -204,7 +281,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                         side: BorderSide(color: Colors.purple),
                       ),
                       child: Text(
-                        (!started) ? "Start" : "Pause",
+                        (!started) ? "Başlat" : "Durdur",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -232,7 +309,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                         side: BorderSide(color: Colors.purple),
                       ),
                       child: Text(
-                        "Reset",
+                        "Sıfırla",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

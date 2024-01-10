@@ -102,7 +102,7 @@ class NavigationControlBuilder {
               color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.pomodoro
                   ? Colors.blue
                   : Colors.white,
-              label: 'StopWatch',
+              label: 'Pomodoro',
               onPressed: () {
                 updateMenu(context, MenuTypeEnum.pomodoro);
               },
