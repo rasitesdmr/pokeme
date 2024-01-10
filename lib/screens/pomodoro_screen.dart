@@ -114,7 +114,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
         return Center(
           child: AlertDialog(
             contentPadding:
-            const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -323,7 +323,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                                     color: Color(0xFFCEC7BF)),
                                 onPressed: () {
                                   int pomodoroDuration = int.tryParse(
-                                      pomodoroDurationController.text) ??
+                                          pomodoroDurationController.text) ??
                                       25;
                                   setTimerDuration(
                                       pomodoroDuration, 'Pomodoro');
@@ -364,7 +364,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                                     color: Color(0xFFCEC7BF)),
                                 onPressed: () {
                                   int shortBreakDuration = int.tryParse(
-                                      shortBreakDurationController.text) ??
+                                          shortBreakDurationController.text) ??
                                       5;
                                   setTimerDuration(
                                       shortBreakDuration, 'Kısa Ara');
@@ -405,7 +405,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                                     color: Color(0xFFCEC7BF)),
                                 onPressed: () {
                                   int longBreakDuration = int.tryParse(
-                                      longBreakDurationController.text) ??
+                                          longBreakDurationController.text) ??
                                       15;
                                   setTimerDuration(
                                       longBreakDuration, 'Uzun Ara');
@@ -455,7 +455,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                     children: [
                       IconButton(
                         icon:
-                        const Icon(Icons.refresh, color: Color(0xFFCEC7BF)),
+                            const Icon(Icons.refresh, color: Color(0xFFCEC7BF)),
                         onPressed: resetTimer,
                         iconSize: 40,
                         constraints: const BoxConstraints(
