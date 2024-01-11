@@ -21,10 +21,8 @@ class AnalogClockBuilder {
       child: const Align(
         alignment: FractionalOffset(0.5, 0.75),
         child: Text(
-            'GMT-8',
-          style: TextStyle(
-            color: Colors.white
-          ),
+          'GMT-8',
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -32,55 +30,109 @@ class AnalogClockBuilder {
 
   static Widget buildThirdClock() {
     return AnalogClock(
-      dateTime: DateTime.now(),
-      isKeepTime: true,
-      markingColor: Colors.blue, // Saat işaretlemelerinin rengi.
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            'Today: ${DateTime.now().toLocal().toString().split(' ')[0]}', // Tarih göstergesi.
-            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+      child: Stack(
+        children: [
+          Container(
+            width: 285,
+            height: 290,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/roman_clock_3.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
+          Positioned(
+            top: 15,
+            left: 15,
+            child: ClipOval(
+              child: SizedBox(
+                width: 0,
+                height: 0,
+                child: AnalogClock(
+                  dialColor: null,
+                  markingColor: null,
+                  hourNumberColor: null,
+                  secondHandColor: null,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   static Widget buildFourthClock() {
-    return Stack(
-      children: [
-        Container(
-          width: 280,
-          height: 280,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/roman1.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 15,
-          left: 15,
-          child: ClipOval(
-            child: SizedBox(
-              width: 250,
-              height: 250,
-              child: AnalogClock(
-                dialColor: null,
-                markingColor: null,
-                hourNumberColor: null,
-                secondHandColor: null,
+    return AnalogClock.dark(
+      child: Stack(
+        children: [
+          Container(
+            width: 285,
+            height: 290,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/roman_clock_black_1.jpg'),
+                fit: BoxFit.cover,
               ),
             ),
           ),
-        ),
-
-      ],
+          Positioned(
+            top: 15,
+            left: 15,
+            child: ClipOval(
+              child: SizedBox(
+                width: 0,
+                height: 0,
+                child: AnalogClock(
+                  dialColor: null,
+                  markingColor: null,
+                  hourNumberColor: null,
+                  secondHandColor: null,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
+  }
 
-
+  static Widget buildFifthClock() {
+    return AnalogClock.dark(
+      child: Stack(
+        children: [
+          Container(
+            width: 290,
+            height: 290,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                    'assets/clock_5.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 15,
+            left: 15,
+            child: ClipOval(
+              child: SizedBox(
+                width: 0,
+                height: 0,
+                child: AnalogClock(
+                  dialColor: null,
+                  markingColor: null,
+                  hourNumberColor: null,
+                  secondHandColor: null,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
