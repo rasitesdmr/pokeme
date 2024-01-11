@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pokeme/main.dart';
-import 'package:pokeme/screens/todo_details_screen.dart';
+import 'package:pokeme/screens/test_details_screen.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AlarmNotificationManager {
@@ -22,7 +22,7 @@ class AlarmNotificationManager {
       // Bildirime basıldığında TodoDetailsScreen'e git...
       navigatorKey.currentState?.push(MaterialPageRoute(
         builder: (context) =>
-            TodoDetailsScreen(payload: notificationResponse.payload!),
+            TestDetailsScreen(payload: notificationResponse.payload!),
       ));
     }
   }
@@ -78,7 +78,7 @@ class AlarmNotificationManager {
     required String title,
     required String body,
     required String payload,
-    required String? soundMusicPath,
+    required String soundMusicPath,
   }) async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
@@ -87,7 +87,7 @@ class AlarmNotificationManager {
       channelDescription: 'your_channel_description',
       importance: Importance.max,
       priority: Priority.high,
-      sound: RawResourceAndroidNotificationSound(soundMusicPath!),
+      sound: RawResourceAndroidNotificationSound(soundMusicPath),
       enableVibration: true,
       playSound: true,
       vibrationPattern: Int64List.fromList([0, 1000, 500, 1000]),

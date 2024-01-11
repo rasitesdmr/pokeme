@@ -1,16 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:pokeme/database/todo_database_manager.dart';
+import 'package:pokeme/main.dart';
+import 'package:pokeme/models/todo.dart';
+import 'package:pokeme/screens/todo_screen.dart';
 
 class TestDetailsScreen extends StatefulWidget {
-  const TestDetailsScreen({Key? key}) : super(key: key);
+  final String payload;
+  const TestDetailsScreen({Key? key, required this.payload}) : super(key: key);
 
   @override
   State<TestDetailsScreen> createState() => _TestDetailsScreenState();
 }
 
 class _TestDetailsScreenState extends State<TestDetailsScreen> {
+  Todo? todo;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchTodoDetails();
+  }
+
+  void fetchTodoDetails() async {
+    // Payload'tan todo ID'sini alın. Örnek payload: "todoId:3"
+    final todoId = int.parse(widget.payload.split(":")[1]);
+
+    TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
+    Todo? fetchedTodo = await todoDatabaseManager.getTodoById(todoId);
+
+    if (mounted) {
+      setState(() {
+        todo = fetchedTodo;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    int? todoHour;
+    int? todoMinute;
+    if (todo != null) {
+      todoHour = todo?.alarmDateTime?.hour;
+      todoMinute = todo?.alarmDateTime?.minute;
+    }
+    ;
     return MaterialApp(
       home: Scaffold(
         backgroundColor: const Color(0xFF3D737F),
@@ -45,7 +78,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                           shape: BoxShape.rectangle),
                       child: const Center(
                         child: Text(
-                          '22:00',
+                          '',
                           style: TextStyle(
                               color: Color(0xFF07161B),
                               fontSize: 35,
@@ -84,7 +117,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            'Başlık',
+                            '',
                             style: TextStyle(
                               color: Color(0xFF07161B),
                               fontSize: 20,
@@ -136,12 +169,17 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                 ),
                 const SizedBox(height: 80),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    navigatorKey.currentState?.push(
+                      MaterialPageRoute(builder: (context) => TodoScreen()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF07161B),
                     minimumSize: const Size(150, 70),
                   ),
-                  child: const Text('Tamam',
+                  child: const Text(
+                    'Tamam',
                     style: TextStyle(
                       fontSize: 25,
                       color: Color(0xFFCEC7BF),
