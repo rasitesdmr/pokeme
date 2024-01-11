@@ -16,6 +16,7 @@ const String columnText3 = 'text3';
 const String columnText3Status = 'text3Status';
 const String columnReminderAlarmId = 'reminderAlarmId';
 const String columnAlarmDateTimeId = 'alarmDateTimeId';
+const String columnSoundPath = 'soundPath';
 
 class TodoDatabaseManager {
   static Database? _database;
@@ -54,7 +55,8 @@ class TodoDatabaseManager {
             $columnText3 TEXT,
             $columnText3Status INTEGER,
             $columnReminderAlarmId INTEGER,
-            $columnAlarmDateTimeId INTEGER)
+            $columnAlarmDateTimeId INTEGER,
+            $columnSoundPath TEXT)
         ''');
       },
     );

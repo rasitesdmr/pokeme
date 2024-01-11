@@ -12,6 +12,7 @@ class Todo {
   int? text3Status;
   int? reminderAlarmId;
   int? alarmDateTimeId;
+  String? soundPath;
 
   Todo(
       {this.id,
@@ -26,7 +27,8 @@ class Todo {
       this.text3,
       this.text3Status,
       this.reminderAlarmId,
-      this.alarmDateTimeId});
+      this.alarmDateTimeId,
+      this.soundPath});
 
   factory Todo.fromMap(Map<String, dynamic> json) => Todo(
         id: json["id"],
@@ -42,6 +44,7 @@ class Todo {
         text3Status: json["text3Status"],
         reminderAlarmId: json["reminderAlarmId"],
         alarmDateTimeId: json["alarmDateTimeId"],
+        soundPath: json["soundPath"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -58,5 +61,6 @@ class Todo {
         "text3Status": text3Status,
         "reminderAlarmId": reminderAlarmId,
         "alarmDateTimeId": alarmDateTimeId,
+        "soundPath": soundPath,
       };
 }

@@ -224,10 +224,11 @@ class _AlarmScreenState extends State<AlarmScreen> {
   @pragma('vm:entry-point')
   static void alarmCallback() {
     AlarmNotificationManager.displayAlarmWithAction(
+      id: 0,
       title: "Alarm",
       body: "Alarmınız çalıyor!",
       payload: 'Alarm Payload',
-      customSoundPath: selectedSoundPath,
+      soundMusicPath: selectedSoundPath,
     );
   }
 

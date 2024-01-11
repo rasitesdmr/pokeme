@@ -5,6 +5,7 @@ import 'package:pokeme/database/todo_database_manager.dart';
 import 'package:pokeme/models/todo.dart';
 import 'package:pokeme/notifications/alarm_notification_manager.dart';
 import 'package:pokeme/screens/todo_details_screen.dart';
+import 'package:sensors/sensors.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
@@ -24,6 +25,7 @@ class _TodoScreenState extends State<TodoScreen> {
   late int _selectedText3Status;
   late int _selectedReminderAlarmId;
   late int _selectedalarmDateTimeId;
+  late String _selectedSoundPath;
   int count = 1;
   int count2 = 300;
 
@@ -32,7 +34,17 @@ class _TodoScreenState extends State<TodoScreen> {
   DateTime? _alarmTime;
   DateTime? _reminderTime;
 
-  static String selectedSoundPath = 'alarm_sound';
+  String musicPath = 'deneme1';
+  static String selectedSoundPath1 = 'deneme1';
+  static String selectedSoundPath2 = 'deneme2';
+  static String selectedSoundPath3 = 'deneme3';
+  static String selectedSoundPath4 = 'deneme4';
+  static String selectedSoundPath5 = 'deneme5';
+  static String selectedSoundPath6 = 'deneme6';
+  static String selectedSoundPath7 = 'deneme7';
+  static String selectedSoundPath8 = 'deneme8';
+  static String selectedSoundPath9 = 'deneme9';
+  static String selectedSoundPath10 = 'deneme10';
 
   TodoDatabaseManager _todoDatabaseManager = TodoDatabaseManager();
   Future<List<Todo>>? _futureTodos;
@@ -49,6 +61,7 @@ class _TodoScreenState extends State<TodoScreen> {
       },
     );
     listenToNotifications();
+    listenToSensor();
     super.initState();
   }
 
@@ -78,6 +91,20 @@ class _TodoScreenState extends State<TodoScreen> {
       15,
       20
     ]; // Dakika cinsinden hatırlatma seçenekleri
+
+    List<String> musicOptions = [
+      'deneme1',
+      'deneme2',
+      'deneme3',
+      'deneme4',
+      'deneme5',
+      'deneme6',
+      'deneme7',
+      'deneme8',
+      'deneme9',
+      'deneme10',
+    ]; // Müzik seçenekleri
+
     int selectedReminder = 5; // Varsayılan olarak seçilen hatırlatma süresi
 
     _alarmTimeString = selectedTodo != null
@@ -100,6 +127,9 @@ class _TodoScreenState extends State<TodoScreen> {
               padding: const EdgeInsets.all(32),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 100,
+                  ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
@@ -112,6 +142,9 @@ class _TodoScreenState extends State<TodoScreen> {
                     ),
                     child: Row(
                       children: [
+                        SizedBox(
+                          width: 80,
+                        ),
                         TextButton(
                           onPressed: () async {
                             final now = DateTime.now();
@@ -161,7 +194,6 @@ class _TodoScreenState extends State<TodoScreen> {
                   ),
 
                   // ---------------------------------------
-
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
@@ -487,8 +519,44 @@ class _TodoScreenState extends State<TodoScreen> {
                       ),
                     ),
                   ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: musicPath,
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            setModalState(() {
+                              _selectedSoundPath = newValue;
+                              musicPath = newValue;
+                            });
+                          }
+                        },
+                        items: musicOptions
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   FloatingActionButton.extended(
                     onPressed: () {
@@ -540,6 +608,7 @@ class _TodoScreenState extends State<TodoScreen> {
       text3Status: 0,
       reminderAlarmId: _selectedReminderAlarmId,
       alarmDateTimeId: _selectedalarmDateTimeId,
+      soundPath: _selectedSoundPath,
     );
 
     if (selectedTodo == null) {
@@ -625,6 +694,33 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
+  static String getSoundPath(String selectedSound) {
+    switch (selectedSound) {
+      case 'deneme1':
+        return selectedSoundPath1;
+      case 'deneme2':
+        return selectedSoundPath2;
+      case 'deneme3':
+        return selectedSoundPath3;
+      case 'deneme4':
+        return selectedSoundPath4;
+      case 'deneme5':
+        return selectedSoundPath5;
+      case 'deneme6':
+        return selectedSoundPath6;
+      case 'deneme7':
+        return selectedSoundPath7;
+      case 'deneme8':
+        return selectedSoundPath8;
+      case 'deneme9':
+        return selectedSoundPath9;
+      case 'deneme10':
+        return selectedSoundPath10;
+      default:
+        return 'default_sound';
+    }
+  }
+
   listenToNotifications() {
     print("Listening to notification");
     AlarmNotificationManager.onClickNotification.stream.listen((event) {
@@ -636,6 +732,28 @@ class _TodoScreenState extends State<TodoScreen> {
         ),
       );
     });
+  }
+
+  void listenToSensor() {
+    accelerometerEvents.listen((AccelerometerEvent event) {
+      if (isShake(event)) {
+        // Telefon sallandı, bildirimi iptal et
+        cancelNotification();
+      }
+    });
+  }
+
+  bool isShake(AccelerometerEvent event) {
+    // Basit bir sallama algılama mantığı
+    // X, Y veya Z eksenlerindeki ivme değerlerinin bir eşiğin üzerine çıkıp çıkmadığını kontrol edin
+    double shakeThreshold = 15.0; // Örnek bir eşik değeri
+    return (event.x.abs() > shakeThreshold ||
+        event.y.abs() > shakeThreshold ||
+        event.z.abs() > shakeThreshold);
+  }
+
+  void cancelNotification() {
+    AlarmNotificationManager.cancelAllNotifications();
   }
 
   Future<void> scheduleAlarm(
@@ -654,12 +772,14 @@ class _TodoScreenState extends State<TodoScreen> {
     TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
     var todo =
         await todoDatabaseManager.getTodoByAlarmDateTimeId(alarmDateTimeId);
+    String soundMusicPath = getSoundPath(todo!.soundPath!);
 
     AlarmNotificationManager.displayAlarmWithAction(
+      id: alarmDateTimeId,
       title: todo!.title!,
       body: "Todo Zamanı",
       payload: 'Alarm Payload',
-      customSoundPath: selectedSoundPath,
+      soundMusicPath: soundMusicPath,
     );
   }
 

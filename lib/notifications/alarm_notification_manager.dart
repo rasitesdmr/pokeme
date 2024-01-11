@@ -74,10 +74,11 @@ class AlarmNotificationManager {
   }
 
   static Future<void> displayAlarmWithAction({
+    required int id,
     required String title,
     required String body,
     required String payload,
-    String? customSoundPath,
+    required String? soundMusicPath,
   }) async {
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
@@ -86,7 +87,7 @@ class AlarmNotificationManager {
       channelDescription: 'your_channel_description',
       importance: Importance.max,
       priority: Priority.high,
-      sound: RawResourceAndroidNotificationSound(customSoundPath!),
+      sound: RawResourceAndroidNotificationSound(soundMusicPath!),
       enableVibration: true,
       playSound: true,
       vibrationPattern: Int64List.fromList([0, 1000, 500, 1000]),
@@ -102,7 +103,7 @@ class AlarmNotificationManager {
     );
 
     await _flutterLocalNotificationsPlugin.show(
-      0,
+      id,
       title,
       body,
       platformChannelSpecifics,
@@ -128,5 +129,9 @@ class AlarmNotificationManager {
       notificationDetails,
       payload: payload,
     );
+  }
+
+  static Future<void> cancelAllNotifications() async {
+    await _flutterLocalNotificationsPlugin.cancelAll();
   }
 }
