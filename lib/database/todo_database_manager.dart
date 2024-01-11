@@ -7,13 +7,15 @@ const String columnId = 'id';
 const String columnTitle = 'title';
 const String columnDateTime = 'alarmDateTime';
 const String columnTodoStatus = 'todoStatus';
-const String columnColorIndex = 'gradientColorIndex';
+const String columnReminderDateTime = 'reminderDateTime';
 const String columnText1 = 'text1';
 const String columnText1Status = 'text1Status';
 const String columnText2 = 'text2';
 const String columnText2Status = 'text2Status';
 const String columnText3 = 'text3';
 const String columnText3Status = 'text3Status';
+const String columnReminderAlarmId = 'reminderAlarmId';
+const String columnAlarmDateTimeId = 'alarmDateTimeId';
 
 class TodoDatabaseManager {
   static Database? _database;
@@ -36,21 +38,23 @@ class TodoDatabaseManager {
 
     var database = await openDatabase(
       path,
-      version: 1,
-      onCreate: (db, version) {
-        db.execute('''
+      version: 4,
+      onCreate: (db, version) async {
+        await db.execute('''
           CREATE TABLE $tableTodo ( 
-            id INTEGER PRIMARY KEY AUTOINCREMENT, 
-            title TEXT,
-            alarmDateTime TEXT,
-            todoStatus INTEGER,
-            gradientColorIndex INTEGER,
-            text1 TEXT,
-            text1Status INTEGER,
-            text2 TEXT,
-            text2Status INTEGER,
-            text3 TEXT,
-            text3Status INTEGER)
+            $columnId INTEGER PRIMARY KEY AUTOINCREMENT, 
+            $columnTitle TEXT,
+            $columnDateTime TEXT,
+            $columnTodoStatus INTEGER,
+            $columnReminderDateTime TEXT,
+            $columnText1 TEXT,
+            $columnText1Status INTEGER,
+            $columnText2 TEXT,
+            $columnText2Status INTEGER,
+            $columnText3 TEXT,
+            $columnText3Status INTEGER,
+            $columnReminderAlarmId INTEGER,
+            $columnAlarmDateTimeId INTEGER)
         ''');
       },
     );
@@ -94,5 +98,51 @@ class TodoDatabaseManager {
       whereArgs: [id],
     );
     return result;
+  }
+
+  Future<Todo?> getTodoByReminderAlarmId(int reminderAlarmId) async {
+    var db = await this.database;
+    List<Map> maps = await db.query(
+      tableTodo,
+      where: '$columnReminderAlarmId = ?',
+      whereArgs: [reminderAlarmId],
+    );
+
+    if (maps.isNotEmpty) {
+      // maps.first ifadesini Map<String, dynamic> türüne dönüştürün
+      return Todo.fromMap(maps.first as Map<String, dynamic>);
+    }
+
+    return null;
+  }
+
+  Future<Todo?> getTodoByAlarmDateTimeId(int alarmDateTimeId) async {
+    var db = await this.database;
+    List<Map> maps = await db.query(
+      tableTodo,
+      where: '$columnAlarmDateTimeId = ?',
+      whereArgs: [alarmDateTimeId],
+    );
+
+    if (maps.isNotEmpty) {
+      // maps.first ifadesini Map<String, dynamic> türüne dönüştürün
+      return Todo.fromMap(maps.first as Map<String, dynamic>);
+    }
+
+    return null;
+  }
+
+  Future<Todo?> getTodoById(int id) async {
+    var db = await this.database;
+    List<Map> maps = await db.query(
+      tableTodo,
+      where: '$columnId = ?',
+      whereArgs: [id],
+    );
+
+    if (maps.isNotEmpty) {
+      return Todo.fromMap(maps.first as Map<String, dynamic>);
+    }
+    return null;
   }
 }

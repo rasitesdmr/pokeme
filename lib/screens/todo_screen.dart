@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:pokeme/database/todo_database_manager.dart';
 import 'package:pokeme/models/todo.dart';
 import 'package:pokeme/notifications/alarm_notification_manager.dart';
+import 'package:pokeme/screens/todo_details_screen.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
@@ -21,9 +22,15 @@ class _TodoScreenState extends State<TodoScreen> {
   late int _selectedText1Status;
   late int _selectedText2Status;
   late int _selectedText3Status;
+  late int _selectedReminderAlarmId;
+  late int _selectedalarmDateTimeId;
+  int count = 1;
+  int count2 = 300;
 
   late String _alarmTimeString;
+  late String _reminderAlarmTimeString;
   DateTime? _alarmTime;
+  DateTime? _reminderTime;
 
   static String selectedSoundPath = 'alarm_sound';
 
@@ -65,11 +72,20 @@ class _TodoScreenState extends State<TodoScreen> {
     _selectedText2 = selectedTodo?.text2 ?? '';
     _selectedText3 = selectedTodo?.text3 ?? '';
 
+    List<int> reminderOptions = [
+      5,
+      10,
+      15,
+      20
+    ]; // Dakika cinsinden hatırlatma seçenekleri
+    int selectedReminder = 5; // Varsayılan olarak seçilen hatırlatma süresi
+
     _alarmTimeString = selectedTodo != null
         ? DateFormat('HH:mm').format(selectedTodo.alarmDateTime!)
         : DateFormat('HH:mm').format(DateTime.now());
     showModalBottomSheet(
       useRootNavigator: true,
+      isScrollControlled: true,
       context: context,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
@@ -430,6 +446,50 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<int>(
+                        isExpanded: true,
+                        value: selectedReminder,
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        onChanged: (int? newValue) {
+                          if (newValue != null) {
+                            setModalState(() {
+                              selectedReminder = newValue;
+                              if (_alarmTime != null) {
+                                _reminderTime = _alarmTime!
+                                    .subtract(Duration(minutes: newValue));
+                                _reminderAlarmTimeString =
+                                    DateFormat('HH:mm').format(_reminderTime!);
+                              }
+                            });
+                          }
+                        },
+                        items: reminderOptions
+                            .map<DropdownMenuItem<int>>((int value) {
+                          return DropdownMenuItem<int>(
+                            value: value,
+                            child: Text('$value dakika önce'),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   FloatingActionButton.extended(
                     onPressed: () {
                       onSaveTodo(selectedTodo: selectedTodo);
@@ -449,12 +509,23 @@ class _TodoScreenState extends State<TodoScreen> {
   void onSaveTodo({Todo? selectedTodo}) {
     DateTime now = DateTime.now();
     DateTime scheduleAlarmDateTime;
+    DateTime scheduleReminderDateTime;
 
     if (_alarmTime!.isAfter(now)) {
       scheduleAlarmDateTime = _alarmTime!;
     } else {
       scheduleAlarmDateTime = _alarmTime!.add(Duration(days: 1));
     }
+
+    scheduleReminderDateTime = _reminderTime!;
+
+    _selectedReminderAlarmId = count;
+    final int reminderAlarmId = _selectedReminderAlarmId;
+    count++;
+
+    _selectedalarmDateTimeId = count2;
+    final int alarmDateTimeId = _selectedalarmDateTimeId;
+    count2++;
 
     var todoInfo = Todo(
       title: _selectedTodoTitle,
@@ -463,9 +534,12 @@ class _TodoScreenState extends State<TodoScreen> {
       text2: _selectedText2,
       text3: _selectedText3,
       alarmDateTime: scheduleAlarmDateTime,
+      reminderDateTime: _reminderTime,
       text1Status: 0,
       text2Status: 0,
       text3Status: 0,
+      reminderAlarmId: _selectedReminderAlarmId,
+      alarmDateTimeId: _selectedalarmDateTimeId,
     );
 
     if (selectedTodo == null) {
@@ -473,7 +547,9 @@ class _TodoScreenState extends State<TodoScreen> {
     }
     Navigator.pop(context);
     loadTodos();
-    scheduleAlarm(scheduleAlarmDateTime);
+
+    scheduleAlarm(scheduleAlarmDateTime, alarmDateTimeId);
+    scheduleReminder(scheduleReminderDateTime, reminderAlarmId);
   }
 
   void updateTodo(Todo todo) {
@@ -553,15 +629,20 @@ class _TodoScreenState extends State<TodoScreen> {
     print("Listening to notification");
     AlarmNotificationManager.onClickNotification.stream.listen((event) {
       print(event);
-      Navigator.pushNamed(context, '/another', arguments: event);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TodoDetailsScreen(payload: event),
+        ),
+      );
     });
   }
 
-  Future<void> scheduleAlarm(DateTime scheduledNotificationDateTime) async {
-    var alarmId = 2;
+  Future<void> scheduleAlarm(
+      DateTime scheduledNotificationDateTime, int alarmDateTimeId) async {
     await AndroidAlarmManager.oneShotAt(
       scheduledNotificationDateTime,
-      alarmId,
+      alarmDateTimeId,
       alarmCallback,
       exact: true,
       wakeup: true,
@@ -569,12 +650,40 @@ class _TodoScreenState extends State<TodoScreen> {
   }
 
   @pragma('vm:entry-point')
-  static void alarmCallback() {
+  static Future<void> alarmCallback(int alarmDateTimeId) async {
+    TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
+    var todo =
+        await todoDatabaseManager.getTodoByAlarmDateTimeId(alarmDateTimeId);
+
     AlarmNotificationManager.displayAlarmWithAction(
-      title: "Todo",
+      title: todo!.title!,
       body: "Todo Zamanı",
       payload: 'Alarm Payload',
       customSoundPath: selectedSoundPath,
+    );
+  }
+
+  Future<void> scheduleReminder(
+      DateTime scheduledNotificationDateTime, int reminderAlarmId) async {
+    await AndroidAlarmManager.oneShotAt(
+      scheduledNotificationDateTime,
+      reminderAlarmId,
+      alarmReminderCallback,
+      exact: true,
+      wakeup: true,
+    );
+  }
+
+  @pragma('vm:entry-point')
+  static Future<void> alarmReminderCallback(int reminderAlarmId) async {
+    TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
+    var todo =
+        await todoDatabaseManager.getTodoByReminderAlarmId(reminderAlarmId);
+
+    AlarmNotificationManager.sendReminderTodoNotification(
+      title: todo!.title!,
+      body: "Todo Zamanı",
+      payload: 'todoId:${todo.id}',
     );
   }
 

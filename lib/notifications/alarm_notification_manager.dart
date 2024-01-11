@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pokeme/main.dart';
+import 'package:pokeme/screens/todo_details_screen.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AlarmNotificationManager {
@@ -18,10 +19,11 @@ class AlarmNotificationManager {
       _flutterLocalNotificationsPlugin.cancel(notificationResponse.id!);
     } else {
       print('Alarm Devam');
-      // Bildirime basıldığında AlarmStopPage'e git...
-      onClickNotification.add(notificationResponse.payload!);
-      navigatorKey.currentState
-          ?.push(MaterialPageRoute(builder: (context) => Container()));
+      // Bildirime basıldığında TodoDetailsScreen'e git...
+      navigatorKey.currentState?.push(MaterialPageRoute(
+        builder: (context) =>
+            TodoDetailsScreen(payload: notificationResponse.payload!),
+      ));
     }
   }
 
@@ -104,6 +106,26 @@ class AlarmNotificationManager {
       title,
       body,
       platformChannelSpecifics,
+      payload: payload,
+    );
+  }
+
+  // Basit bildirim gönderme
+  static Future<void> sendReminderTodoNotification({
+    required String title,
+    required String body,
+    required String payload,
+  }) async {
+    final AndroidNotificationDetails androidDetails =
+        AndroidNotificationDetails('channel_id', 'channel_name',
+            channelDescription: 'channel_description');
+    final NotificationDetails notificationDetails =
+        NotificationDetails(android: androidDetails);
+    await flutterLocalNotificationsPlugin.show(
+      0, // ID
+      title,
+      body,
+      notificationDetails,
       payload: payload,
     );
   }
