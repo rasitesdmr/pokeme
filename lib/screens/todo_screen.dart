@@ -78,6 +78,342 @@ class _TodoScreenState extends State<TodoScreen> {
     }
   }
 
+  void openTodoUpdateBottomSheet(Todo todo) {
+    String title = '';
+    String tast1 = '';
+    String tast2 = '';
+    String tast3 = '';
+
+    showModalBottomSheet(
+      useRootNavigator: true,
+      context: context,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(24),
+        ),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Container(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 60,
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Title : ${todo.title}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            // Başlık düzenleme işlemi burada
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Current Title'),
+                                  content: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: Colors.grey.shade300,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8),
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        title = value;
+                                        todo.title = title;
+                                      },
+                                      controller: TextEditingController(
+                                        text: title,
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: '${todo.title}',
+                                      ),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('OK'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        setModalState(() {});
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Task : ${todo.text1} ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            // Başlık düzenleme işlemi burada
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Current Task'),
+                                  content: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: Colors.grey.shade300,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8),
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        tast1 = value;
+                                        if (tast1 != null) {
+                                          todo.text1 = tast1;
+                                        }
+                                      },
+                                      controller: TextEditingController(
+                                        text: tast1,
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: '${todo.text1}',
+                                      ),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('OK'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        setModalState(() {});
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Task: ${todo.text2}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            // Başlık düzenleme işlemi burada
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Current Task'),
+                                  content: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: Colors.grey.shade300,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8),
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        tast2 = value;
+                                        if (tast2 != null) {
+                                          todo.text2 = tast2;
+                                        }
+                                      },
+                                      controller: TextEditingController(
+                                        text: tast2,
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: '${todo.text2}',
+                                      ),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('OK'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        setModalState(() {});
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Task: ${todo.text3}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            // Başlık düzenleme işlemi burada
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Current Task'),
+                                  content: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                        color: Colors.grey.shade300,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8),
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        tast3 = value;
+                                        if (tast3 != null) {
+                                          todo.text3 = tast3;
+                                        }
+                                      },
+                                      controller: TextEditingController(
+                                        text: tast3,
+                                      ),
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: '${todo.text3}',
+                                      ),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('OK'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        setModalState(() {});
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    child:
+                        Text('Update', style: TextStyle(color: Colors.white)),
+                    style: ElevatedButton.styleFrom(primary: Colors.green),
+                    onPressed: () {
+                      updateTodo(todo);
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   // Kaydetme bottom sheet
   void openTodoBottomSheet({Todo? selectedTodo}) {
     _selectedTodoTitle = selectedTodo?.title ?? '';
@@ -630,9 +966,13 @@ class _TodoScreenState extends State<TodoScreen> {
       text2: todo.text2,
       text3: todo.text3,
       alarmDateTime: todo.alarmDateTime,
-      text1Status: _selectedText1Status,
-      text2Status: _selectedText2Status,
-      text3Status: _selectedText3Status,
+      reminderAlarmId: todo.reminderAlarmId,
+      reminderDateTime: todo.reminderDateTime,
+      alarmDateTimeId: todo.alarmDateTimeId,
+      soundPath: todo.soundPath,
+      text1Status: _selectedText1Status == null ? todo.text1Status : null,
+      text2Status: _selectedText2Status == null ? todo.text2Status : null,
+      text3Status: _selectedText3Status == null ? todo.text3Status : null,
     );
     _todoDatabaseManager.updateTodo(todoInfo);
     Navigator.pop(context);
@@ -849,23 +1189,28 @@ class _TodoScreenState extends State<TodoScreen> {
                     ],
                   ),
                   if (selectedTodo?.text1?.isNotEmpty == true)
-                    buildStatusItem('Görev 1 : ${selectedTodo?.text1}',
-                        _selectedText1Status, (newValue) {
+                    buildStatusItem(
+                        'Task : ${selectedTodo?.text1}', _selectedText1Status,
+                        (newValue) {
                       _selectedText1Status = newValue;
+                      selectedTodo.text1Status = _selectedText1Status;
                       setModalState(() {});
                     }),
                   if (selectedTodo?.text2?.isNotEmpty == true)
-                    buildStatusItem('Görev 2 : ${selectedTodo?.text2}',
-                        _selectedText2Status, (newValue) {
+                    buildStatusItem(
+                        'Task : ${selectedTodo?.text2}', _selectedText2Status,
+                        (newValue) {
                       _selectedText2Status = newValue;
+                      selectedTodo.text2Status = _selectedText2Status;
                       setModalState(() {});
                     }),
                   if (selectedTodo?.text3?.isNotEmpty == true)
                     buildStatusItem(
-                      'Görev 3 : ${selectedTodo?.text3}',
+                      'Task : ${selectedTodo?.text3}',
                       _selectedText3Status,
                       (newValue) {
                         _selectedText3Status = newValue;
+                        selectedTodo.text3Status = _selectedText3Status;
                         setModalState(() {});
                       },
                     ),
@@ -884,8 +1229,19 @@ class _TodoScreenState extends State<TodoScreen> {
                         width: 10,
                       ),
                       ElevatedButton(
-                        child:
-                            Text('Save', style: TextStyle(color: Colors.white)),
+                        child: Text('Update',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(primary: Colors.green),
+                        onPressed: () {
+                          openTodoUpdateBottomSheet(selectedTodo);
+                        },
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                        child: Text(' Save ',
+                            style: TextStyle(color: Colors.white)),
                         style: ElevatedButton.styleFrom(primary: Colors.blue),
                         onPressed: () {
                           updateTodo(selectedTodo!);
