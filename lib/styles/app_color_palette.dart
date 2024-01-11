@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppColorPalette {
-  static Color primaryTextColor = Colors.white;
+  static Color primaryTextColor = Color(0xFFCEC7BF);
   static Color dividerColor = Colors.white54;
-  static Color pageBackgroundColor = Color(0xFF2D2F41);
+  static List<Color> pageBackgroundColor = [Color(0xFF07161B), Color(0xFF3D737F)];
   static Color menuBackgroundColor = Color(0xFF242634);
 
   static Color clockBG = Color(0xFF444974);
