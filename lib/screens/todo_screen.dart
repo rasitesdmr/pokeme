@@ -6,6 +6,7 @@ import 'package:pokeme/models/todo.dart';
 import 'package:pokeme/notifications/alarm_notification_manager.dart';
 import 'package:pokeme/screens/todo_details_screen.dart';
 import 'package:sensors/sensors.dart';
+import 'package:pokeme/styles/app_color_palette.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});

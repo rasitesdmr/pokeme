@@ -19,44 +19,55 @@ class AppColorPalette {
 
   static Color stopWatchTourScreenColor = Color(0xFF4F95A5);
 
+  static List<Color> alarmItemBackgraoundColor = [Color(0xFF2E505F), Color(0xFF538F99), Color(0xFFa5a5a5)];
+  static List<Color> alarmItemTextColor = [Color(0xFFD9D9D9), Color(0xFF1C3039)];
+  static List<Color> alarmItemSwitchBackgroundColor = [Color(0xFFD9D9D9), Color(0xFF538F99)];
+  static List<Color> alarmItemSwitchButtonColor = [Color(0xFF538F99), Color(0xFF1C3039), Color(0xFFD9D9D9)];
+  static Color alarmAddBackgroundColor = Color(0xFF4F95A5);
+  static Color alarmBorderColor = Color(0xFF1C3039);
+  static Color alarmDeleteButton = Color(0xFF8e261e);
+
+  static Color alarmAddScreenBackgroundColor = Color(0xFFD9D9D9);
+  static Color alaramAddScreenTextColor = Color(0xFF1C3039);
+  static Color alaramAddScreenButtonColor = Color(0xFF1C3039);
+  static Color alaramAddScreenButtonTextColor = Color(0xFFD9D9D9);
+
+
 }
 
 class GradientColors {
   final List<Color> colors;
   GradientColors(this.colors);
 
-  static List<Color> sky = [Color(0xFF2D2F41), Color(0xFF5FC6FF)];
-  static List<Color> sunset = [Color(0xFF2D2F41), Color(0xFFFFB463)];
-  static List<Color> sea = [Color(0xFF2D2F41), Color(0xFF63FFD5)];
-  static List<Color> mango = [Color(0xFF2D2F41), Color(0xFFFFE130)];
-  static List<Color> fire = [Color(0xFF2D2F41), Color(0xFFFF8484)];
-  static List<Color> test = [Color(0xFF2D2F41), Color(0xFFFF8484)];
+  static List<Color> sky = [Color(0xFF2E505F), Color(0xFF2E505F)];
+  static List<Color> sunset = [Color(0xFF538F99), Color(0xFF538F99)];
+  static List<Color> sea = [Color(0xFFa5a5a5), Color(0xFFa5a5a5)];
 }
 
 class GradientTemplate {
   static List<GradientColors> gradientTemplate = [
     // Renk listesi düzenlenecek
-    GradientColors(GradientColors.test),
+    GradientColors(GradientColors.sky),
     GradientColors(GradientColors.sunset),
     GradientColors(GradientColors.sea),
-    GradientColors(GradientColors.mango),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
-    GradientColors(GradientColors.fire),
+    GradientColors(GradientColors.sky),
+    GradientColors(GradientColors.sunset),
+    GradientColors(GradientColors.sea),
+    GradientColors(GradientColors.sky),
+    GradientColors(GradientColors.sunset),
+    GradientColors(GradientColors.sea),
+    GradientColors(GradientColors.sky),
+    GradientColors(GradientColors.sunset),
+    GradientColors(GradientColors.sea),
+    GradientColors(GradientColors.sky),
+    GradientColors(GradientColors.sunset),
+    GradientColors(GradientColors.sea),
+    GradientColors(GradientColors.sky),
+    GradientColors(GradientColors.sunset),
+    GradientColors(GradientColors.sea),
+    GradientColors(GradientColors.sky),
+    GradientColors(GradientColors.sunset),
+    GradientColors(GradientColors.sea),
+    GradientColors(GradientColors.sky),
   ];
 }
