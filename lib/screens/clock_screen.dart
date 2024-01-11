@@ -8,6 +8,7 @@ import 'package:pokeme/widgets/analog_clock_builder.dart';
 import 'package:pokeme/widgets/navigation_control_builder.dart';
 import 'package:pokeme/widgets/real_time_clock_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:pokeme/styles/app_color_palette.dart';
 
 import 'pomodoro_screen.dart';
 
@@ -47,7 +48,7 @@ class _ClockScreenState extends State<ClockScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF2D2F41),
+      backgroundColor: AppColorPalette.pageBackgroundColor[0],
       bottomNavigationBar: NavigationControlBuilder.bottomAppBar(context),
       body: Row(
         children: [
@@ -56,18 +57,18 @@ class _ClockScreenState extends State<ClockScreen> {
               builder: (BuildContext context,
                   MenuSelectionProvider menuSelectionProvider, Widget? child) {
                 if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.alarm) {
-                  return AlarmScreen();
+                  return const AlarmScreen();
                 }
                 if (menuSelectionProvider.menuTypeEnum ==
                     MenuTypeEnum.stopwatch) {
-                  return StopWatchScreen();
+                  return const StopWatchScreen();
                 }
                 if (menuSelectionProvider.menuTypeEnum ==
                     MenuTypeEnum.pomodoro) {
-                  return PomodoroScreen();
+                  return const PomodoroScreen();
                 }
                 if (menuSelectionProvider.menuTypeEnum == MenuTypeEnum.todo) {
-                  return TodoScreen();
+                  return const TodoScreen();
                 }
                 return Container(
                   padding:
@@ -76,11 +77,11 @@ class _ClockScreenState extends State<ClockScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Align(
-                        alignment: Alignment.center,
+                        alignment: Alignment.topLeft,
                         child: Text(
                           'Saat',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xFFCEC7BF),
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
@@ -93,7 +94,7 @@ class _ClockScreenState extends State<ClockScreen> {
                               onTap: toggleClock, child: clockWidget),
                         ),
                       ),
-                      Flexible(
+                      const Flexible(
                         flex: 1,
                         child: Center(
                           child: RealTimeClockWidget(),

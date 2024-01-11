@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppColorPalette {
-  static Color primaryTextColor = Color(0xFFCEC7BF);
+  static List<Color> primaryTextColor = [Color(0xFFCEC7BF), Color(0xFF07161B)];
   static Color dividerColor = Colors.white54;
   static List<Color> pageBackgroundColor = [Color(0xFF07161B), Color(0xFF3D737F)];
-  static Color menuBackgroundColor = Color(0xFF242634);
+  static Color menuBackgroundColor = Color(0xFF07161B);
+  static Color menuSelectedItemColor = Color(0xFFCEC7BF);
+  static Color menuUnselectedItemColor = Color(0xFF9b958f);
+  static Color buttonColor = Color(0xFF07161B);
 
   static Color clockBG = Color(0xFF444974);
   static Color clockOutline = Color(0xFFEAECFF);
@@ -13,6 +16,9 @@ class AppColorPalette {
   static Color minHandEndColor = Color(0xFF77DDFF);
   static Color hourHandStatColor = Color(0xFFC279FB);
   static Color hourHandEndColor = Color(0xFFEA74AB);
+
+  static Color stopWatchTourScreenColor = Color(0xFF4F95A5);
+
 }
 
 class GradientColors {

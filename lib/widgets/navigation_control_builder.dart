@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:pokeme/enums/menu_type_enum.dart';
 import 'package:pokeme/providers/menu_selection_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:pokeme/styles/app_color_palette.dart';
 
 class NavigationControlBuilder {
   static Widget floatingActionButton() {
     return FloatingActionButton(
-      backgroundColor: Colors.blue,
+      backgroundColor: AppColorPalette.menuBackgroundColor,
       tooltip: 'Increment',
       onPressed: () {},
       child: const Icon(
@@ -19,7 +20,7 @@ class NavigationControlBuilder {
   static Widget bottomAppBar(BuildContext context) {
     final buttonBarInfo = Provider.of<MenuSelectionProvider>(context);
     return BottomAppBar(
-      color: const Color(0xFF2D2F41),
+      color: AppColorPalette.menuBackgroundColor,
       shape: const CircularNotchedRectangle(),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -29,18 +30,18 @@ class NavigationControlBuilder {
           children: [
             buildIconButton(
               icon: Icon(
-                Icons.watch_later,
-                color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.clock
-                    ? Colors.blue
-                    : Colors.white,
+                Icons.book,
                 size: 28,
+                color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.pomodoro
+                    ? AppColorPalette.menuSelectedItemColor
+                    : AppColorPalette.menuUnselectedItemColor,
               ),
-              color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.clock
-                  ? Colors.blue
-                  : Colors.white,
-              label: 'Clock',
+              color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.pomodoro
+                  ? AppColorPalette.menuSelectedItemColor
+                  : AppColorPalette.menuUnselectedItemColor,
+              label: 'Pomodoro',
               onPressed: () {
-                updateMenu(context, MenuTypeEnum.clock);
+                updateMenu(context, MenuTypeEnum.pomodoro);
               },
             ),
             buildIconButton(
@@ -48,13 +49,13 @@ class NavigationControlBuilder {
                 Icons.alarm,
                 size: 28,
                 color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.alarm
-                    ? Colors.blue
-                    : Colors.white,
+                    ? AppColorPalette.menuSelectedItemColor
+                    : AppColorPalette.menuUnselectedItemColor,
               ),
               color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.alarm
-                  ? Colors.blue
-                  : Colors.white,
-              label: 'Alarm',
+                  ? AppColorPalette.menuSelectedItemColor
+                  : AppColorPalette.menuUnselectedItemColor,
+              label: '  Alarm ',
               onPressed: () {
                 updateMenu(context, MenuTypeEnum.alarm);
               },
@@ -64,15 +65,31 @@ class NavigationControlBuilder {
                 Icons.today_sharp,
                 size: 28,
                 color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.todo
-                    ? Colors.blue
-                    : Colors.white,
+                    ? AppColorPalette.menuSelectedItemColor
+                    : AppColorPalette.menuUnselectedItemColor,
               ),
               color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.todo
-                  ? Colors.blue
-                  : Colors.white,
-              label: 'Todo',
+                  ? AppColorPalette.menuSelectedItemColor
+                  : AppColorPalette.menuUnselectedItemColor,
+              label: '  Todo  ',
               onPressed: () {
                 updateMenu(context, MenuTypeEnum.todo);
+              },
+            ),
+            buildIconButton(
+              icon: Icon(
+                Icons.watch_later,
+                color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.clock
+                    ? AppColorPalette.menuSelectedItemColor
+                    : AppColorPalette.menuUnselectedItemColor,
+                size: 28,
+              ),
+              color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.clock
+                  ? AppColorPalette.menuSelectedItemColor
+                  : AppColorPalette.menuUnselectedItemColor,
+              label: ' Clock  ',
+              onPressed: () {
+                updateMenu(context, MenuTypeEnum.clock);
               },
             ),
             buildIconButton(
@@ -80,31 +97,15 @@ class NavigationControlBuilder {
                 Icons.storefront,
                 size: 28,
                 color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.stopwatch
-                    ? Colors.blue
-                    : Colors.white,
+                    ? AppColorPalette.menuSelectedItemColor
+                    : AppColorPalette.menuUnselectedItemColor,
               ),
               color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.stopwatch
-                  ? Colors.blue
-                  : Colors.white,
+                  ? AppColorPalette.menuSelectedItemColor
+                  : AppColorPalette.menuUnselectedItemColor,
               label: 'StopWatch',
               onPressed: () {
                 updateMenu(context, MenuTypeEnum.stopwatch);
-              },
-            ),
-            buildIconButton(
-              icon: Icon(
-                Icons.book,
-                size: 28,
-                color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.pomodoro
-                    ? Colors.blue
-                    : Colors.white,
-              ),
-              color: buttonBarInfo.menuTypeEnum == MenuTypeEnum.pomodoro
-                  ? Colors.blue
-                  : Colors.white,
-              label: 'Pomodoro',
-              onPressed: () {
-                updateMenu(context, MenuTypeEnum.pomodoro);
               },
             ),
           ],
@@ -131,7 +132,7 @@ class NavigationControlBuilder {
             child: icon,
           ),
           highlightColor: Colors.transparent,
-          splashColor: Colors.blue,
+          splashColor: AppColorPalette.menuSelectedItemColor,
           radius: 10.0,
         ),
         Text(

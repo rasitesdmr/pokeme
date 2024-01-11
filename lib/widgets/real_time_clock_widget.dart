@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pokeme/styles/app_color_palette.dart';
 
 class RealTimeClockWidget extends StatefulWidget {
   const RealTimeClockWidget({super.key});
@@ -18,7 +19,7 @@ class _RealTimeClockWidgetState extends State<RealTimeClockWidget> {
   void initState() {
     super.initState();
     _updateTime();
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => _updateTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => _updateTime());
   }
 
   void _updateTime() {
@@ -51,14 +52,14 @@ class _RealTimeClockWidgetState extends State<RealTimeClockWidget> {
           style: TextStyle(
             fontSize: 50,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: AppColorPalette.primaryTextColor[0],
           ),
         ),
         Text(
           dateString,
           style: TextStyle(
             fontSize: 20,
-            color: Colors.white,
+            color: AppColorPalette.primaryTextColor[0],
           ),
         ),
       ],

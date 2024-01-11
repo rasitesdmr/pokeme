@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:pokeme/styles/app_color_palette.dart';
 
 class StopWatchScreen extends StatefulWidget {
   const StopWatchScreen({super.key});
@@ -130,15 +131,15 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Clear All Laps"),
-          content: Text("Are you sure you want to clear all laps?"),
+          title: const Text("Clear All Laps"),
+          content: const Text("Are you sure you want to clear all laps?"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Kullanıcı onayı iptal etti.
 
               },
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
@@ -147,7 +148,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                 });
                 Navigator.of(context).pop(); // Kullanıcı onayı tamamlandı.
               },
-              child: Text("Clear"),
+              child: const Text("Clear"),
             ),
           ],
         );
@@ -158,32 +159,37 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2D2F41),
+      backgroundColor: AppColorPalette.pageBackgroundColor[1],
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0, top: 40.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Text(
-                  "Kronometre",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Column(
+                  children: [
+                    Text(
+                      "Kronometre",
+                      style: TextStyle(
+                        color: AppColorPalette.primaryTextColor[0],
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 20.0,
+              const SizedBox(
+                height: 5.0,
               ),
               Center(
                 child: Text(
                   "$digitHours:$digitminutes:$digitSeconds",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: AppColorPalette.primaryTextColor[0],
                     fontSize: 70.0,
                     fontWeight: FontWeight.w600,
                   ),
@@ -192,7 +198,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
               Container(
                 height: 300.0,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF32F68), // Tur renk
+                  color: AppColorPalette.stopWatchTourScreenColor, // Tur renk
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Padding(
@@ -206,7 +212,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                           Text(
                             "Tur",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColorPalette.primaryTextColor[0],
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
@@ -214,7 +220,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                           Text(
                             "Tur süresi",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColorPalette.primaryTextColor[0],
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
@@ -222,14 +228,14 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                           Text(
                             "Toplam Süre",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: AppColorPalette.primaryTextColor[0],
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
-                      Divider(color: Colors.white), // Başlıkların altına çizgi ekliyoruz
+                      Divider(color: AppColorPalette.primaryTextColor[0]), // Başlıkların altına çizgi ekliyoruz
                       ...laps.asMap().entries.map((entry) {
                         final index = entry.key;
                         final lap = entry.value;
@@ -240,21 +246,21 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                             Text(
                               "${lap['tur']}",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColorPalette.primaryTextColor[0],
                                 fontSize: 16.0,
                               ),
                             ),
                             Text(
                               "${lap['tur_suresi']} saniye",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColorPalette.primaryTextColor[0],
                                 fontSize: 16.0,
                               ),
                             ),
                             Text(
                               "${lap['toplam_sure'] ?? '0:00:00'}",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColorPalette.primaryTextColor[0],
                                 fontSize: 16.0,
                               ),
                             ),
@@ -266,53 +272,53 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Expanded(
-                    child: RawMaterialButton(
-                      onPressed: () {
-                        (!started) ? start() : stop();
-                      },
-                      shape: const StadiumBorder(
-                        side: BorderSide(color: Colors.purple),
-                      ),
-                      child: Text(
-                        (!started) ? "Başlat" : "Durdur",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 8.0,
+                  const SizedBox(
+                    width: 30.0,
                   ),
                   IconButton(
-                    color: Colors.white,
+                    color: AppColorPalette.primaryTextColor[0],
                     onPressed: () {
                       addLaps();
                     },
-                    icon: Icon(Icons.flag),
+                    icon: const Icon(Icons.flag),
                   ),
-                  SizedBox(
-                    width: 8.0,
+                  const SizedBox(
+                    width: 20.0,
                   ),
-                  Expanded(
-                    child: RawMaterialButton(
-                      onPressed: () {
-                        reset();
-                      },
-                      fillColor: const Color(0xFF6B2FBB), // Reset rengi
-                      shape: const StadiumBorder(
-                        side: BorderSide(color: Colors.purple),
-                      ),
-                      child: Text(
-                        "Sıfırla",
-                        style: TextStyle(color: Colors.white),
+                  ElevatedButton(
+                    onPressed: () {
+                      (!started) ? start() : stop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColorPalette.buttonColor,
+                      minimumSize: const Size(130, 40),
+                    ),
+                    child: Text(
+                      (!started) ? "Başlat" : "Durdur",
+                      style: TextStyle(color: AppColorPalette.primaryTextColor[0],
+                      fontWeight: FontWeight.bold,
+                        fontSize: 17
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    width: 20.0,
+                  ),
+                  IconButton(
+                    color: AppColorPalette.primaryTextColor[0],
+                    onPressed: () {
+                      reset();
+                    },
+                    icon: Icon(Icons.refresh),
+                  ),
+                  const SizedBox(
+                    width: 30.0,
                   ),
                 ],
               ),

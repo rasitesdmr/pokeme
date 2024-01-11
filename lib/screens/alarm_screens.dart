@@ -244,7 +244,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
             style: TextStyle(
                 fontFamily: 'avenir',
                 fontWeight: FontWeight.w700,
-                color: AppColorPalette.primaryTextColor,
+                color: AppColorPalette.primaryTextColor[0],
                 fontSize: 24),
           ),
           Expanded(
