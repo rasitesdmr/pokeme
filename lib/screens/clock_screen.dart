@@ -25,7 +25,7 @@ class _ClockScreenState extends State<ClockScreen> {
   void toggleClock() {
     setState(() {
       selectedClockIndex =
-          (selectedClockIndex % 5) + 1; // Saatleri döngüsel olarak değiştir
+          (selectedClockIndex % 2) + 1; // Saatleri döngüsel olarak değiştir
     });
   }
 
@@ -39,15 +39,6 @@ class _ClockScreenState extends State<ClockScreen> {
         break;
       case 2:
         clockWidget = AnalogClockBuilder.buildSecondClock();
-        break;
-      case 3:
-        clockWidget = AnalogClockBuilder.buildThirdClock(); // Üçüncü saat
-        break;
-      case 4:
-        clockWidget = AnalogClockBuilder.buildFourthClock(); // Dördüncü saat
-        break;
-      case 5:
-        clockWidget = AnalogClockBuilder.buildFifthClock(); // Beşinci saat
         break;
       default:
         clockWidget =
