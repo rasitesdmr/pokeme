@@ -1372,10 +1372,12 @@ class _TodoScreenState extends State<TodoScreen> {
                                 ListTile(
                                     contentPadding: EdgeInsets.symmetric(
                                         horizontal: 20.0, vertical: 8.0),
-                                    leading: Icon(
-                                      Icons.ac_unit_sharp,
-                                      color: Colors.amberAccent,
-                                    ),
+                                    leading: _expandedList[index]
+                                        ? Icon(Icons.done,
+                                            color: Colors
+                                                .green) // Genişletildiğinde gösterilecek ikon
+                                        : Icon(Icons.ac_unit_sharp,
+                                            color: Colors.amberAccent),
                                     title: Text(
                                       todo?.title ?? 'Default Title',
                                       style: TextStyle(
