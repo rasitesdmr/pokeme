@@ -77,7 +77,7 @@ class _ClockScreenState extends State<ClockScreen> {
                 }
                 return Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
+                  const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
