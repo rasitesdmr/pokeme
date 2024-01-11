@@ -4,12 +4,12 @@ import 'package:pokeme/providers/menu_selection_provider.dart';
 import 'package:pokeme/screens/alarm_screens.dart';
 import 'package:pokeme/screens/stopwatch_screens.dart';
 import 'package:pokeme/screens/todo_screen.dart';
-import 'package:pokeme/screens/pomodoro_screen.dart';
 import 'package:pokeme/widgets/analog_clock_builder.dart';
 import 'package:pokeme/widgets/navigation_control_builder.dart';
 import 'package:pokeme/widgets/real_time_clock_widget.dart';
-import 'package:pokeme/styles/app_color_palette.dart';
 import 'package:provider/provider.dart';
+
+import 'pomodoro_screen.dart';
 
 class ClockScreen extends StatefulWidget {
   const ClockScreen({super.key});
@@ -25,7 +25,7 @@ class _ClockScreenState extends State<ClockScreen> {
   void toggleClock() {
     setState(() {
       selectedClockIndex =
-          (selectedClockIndex % 4) + 1; // Saatleri döngüsel olarak değiştir
+          (selectedClockIndex % 5) + 1; // Saatleri döngüsel olarak değiştir
     });
   }
 
@@ -46,6 +46,9 @@ class _ClockScreenState extends State<ClockScreen> {
       case 4:
         clockWidget = AnalogClockBuilder.buildFourthClock(); // Dördüncü saat
         break;
+      case 5:
+        clockWidget = AnalogClockBuilder.buildFifthClock(); // Beşinci saat
+        break;
       default:
         clockWidget =
             AnalogClockBuilder.buildFirstClock(); // Varsayılan olarak ilk saat
@@ -53,7 +56,7 @@ class _ClockScreenState extends State<ClockScreen> {
     }
 
     return Scaffold(
-      backgroundColor: AppColorPalette.pageBackgroundColor[0],
+      backgroundColor: const Color(0xFF2D2F41),
       bottomNavigationBar: NavigationControlBuilder.bottomAppBar(context),
       body: Row(
         children: [
@@ -82,11 +85,11 @@ class _ClockScreenState extends State<ClockScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.center,
                         child: Text(
-                          'Clock',
+                          'Saat',
                           style: TextStyle(
-                            color: Color(0xFFCEC7BF),
+                            color: Color(0xFF2D2F41),
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
