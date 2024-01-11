@@ -971,9 +971,9 @@ class _TodoScreenState extends State<TodoScreen> {
       reminderDateTime: todo.reminderDateTime,
       alarmDateTimeId: todo.alarmDateTimeId,
       soundPath: todo.soundPath,
-      text1Status: _selectedText1Status == null ? todo.text1Status : null,
-      text2Status: _selectedText2Status == null ? todo.text2Status : null,
-      text3Status: _selectedText3Status == null ? todo.text3Status : null,
+      text1Status: todo.text1Status,
+      text2Status: todo.text2Status,
+      text3Status: todo.text3Status,
     );
     _todoDatabaseManager.updateTodo(todoInfo);
     Navigator.pop(context);
