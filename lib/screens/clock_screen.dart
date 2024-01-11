@@ -4,12 +4,12 @@ import 'package:pokeme/providers/menu_selection_provider.dart';
 import 'package:pokeme/screens/alarm_screens.dart';
 import 'package:pokeme/screens/stopwatch_screens.dart';
 import 'package:pokeme/screens/todo_screen.dart';
+import 'package:pokeme/screens/pomodoro_screen.dart';
 import 'package:pokeme/widgets/analog_clock_builder.dart';
 import 'package:pokeme/widgets/navigation_control_builder.dart';
 import 'package:pokeme/widgets/real_time_clock_widget.dart';
+import 'package:pokeme/styles/app_color_palette.dart';
 import 'package:provider/provider.dart';
-
-import 'pomodoro_screen.dart';
 
 class ClockScreen extends StatefulWidget {
   const ClockScreen({super.key});
@@ -53,7 +53,7 @@ class _ClockScreenState extends State<ClockScreen> {
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFF2D2F41),
+      backgroundColor: AppColorPalette.pageBackgroundColor[0],
       bottomNavigationBar: NavigationControlBuilder.bottomAppBar(context),
       body: Row(
         children: [
@@ -86,7 +86,7 @@ class _ClockScreenState extends State<ClockScreen> {
                         child: Text(
                           'Clock',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xFFCEC7BF),
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
