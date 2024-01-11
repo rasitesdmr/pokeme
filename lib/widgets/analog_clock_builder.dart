@@ -14,13 +14,18 @@ class AnalogClockBuilder {
   }
 
   static Widget buildSecondClock() {
-    return AnalogClock(
+    return AnalogClock.dark(
       dateTime: DateTime.now(),
       isKeepTime: true,
-      markingColor: Colors.red,
+      markingColor: Colors.white,
       child: const Align(
         alignment: FractionalOffset(0.5, 0.75),
-        child: Text('GMT-8'),
+        child: Text(
+            'GMT-8',
+          style: TextStyle(
+            color: Colors.white
+          ),
+        ),
       ),
     );
   }
@@ -44,17 +49,38 @@ class AnalogClockBuilder {
   }
 
   static Widget buildFourthClock() {
-    return AnalogClock(
-      dateTime: DateTime.now(),
-      isKeepTime: true,
-      markingColor: Colors.green, // Saat işaretlemelerinin rengi.
-      child: Align(
-        alignment: Alignment.center,
-        child: Text(
-          'GMT-8', // Saat merkezine yerleştirilen özel metin.
-          style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+    return Stack(
+      children: [
+        Container(
+          width: 280,
+          height: 280,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/roman1.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-      ),
+        Positioned(
+          top: 15,
+          left: 15,
+          child: ClipOval(
+            child: SizedBox(
+              width: 250,
+              height: 250,
+              child: AnalogClock(
+                dialColor: null,
+                markingColor: null,
+                hourNumberColor: null,
+                secondHandColor: null,
+              ),
+            ),
+          ),
+        ),
+
+      ],
     );
+
+
   }
 }
