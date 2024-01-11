@@ -69,6 +69,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
         return StatefulBuilder(
           builder: (context, setModalState) {
             return Container(
+              color: AppColorPalette.alarmAddScreenBackgroundColor,
               padding: const EdgeInsets.all(32),
               child: Column(
                 children: [
@@ -106,12 +107,28 @@ class _AlarmScreenState extends State<AlarmScreen> {
                     },
                     child: Text(
                       _alarmTimeString,
-                      style: TextStyle(fontSize: 32),
+                      style: TextStyle(
+                        fontSize: 32,
+                        color: AppColorPalette.alaramAddScreenTextColor,
+                      ),
                     ),
                   ),
+                  Spacer(flex: 5),
                   ListTile(
-                    title: Text('Repeat'),
+                    title: Text(
+                      'Repeat',
+                      style: TextStyle(
+                          color: AppColorPalette.alaramAddScreenTextColor),
+                    ),
                     trailing: Switch(
+                      activeColor:
+                      AppColorPalette.alarmItemTextColor[0],
+                      activeTrackColor:
+                      AppColorPalette.alarmItemTextColor[1],
+                      inactiveThumbColor:
+                      AppColorPalette.alarmItemTextColor[1],
+                      inactiveTrackColor:
+                      AppColorPalette.alarmItemTextColor[0],
                       onChanged: (value) {
                         setModalState(() {
                           _alarmStatus = value == true ? 1 : 0;
@@ -120,13 +137,29 @@ class _AlarmScreenState extends State<AlarmScreen> {
                       value: _alarmStatus == 1 ? true : false,
                     ),
                   ),
+                  Spacer(),
                   ListTile(
-                    title: Text('Sound'),
-                    trailing: Icon(Icons.arrow_forward_ios),
+                    title: Text(
+                      'Sound',
+                      style: TextStyle(
+                        color: AppColorPalette.alaramAddScreenTextColor,
+                      ),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      onPressed: () {
+                      },
+                    ),
                     onTap: () async {},
                   ),
+                  Spacer(),
                   ListTile(
-                    title: Text('Title'),
+                    title: Text(
+                      'Title',
+                      style: TextStyle(
+                        color: AppColorPalette.alaramAddScreenTextColor,
+                      ),
+                    ),
                     trailing: IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: () {
@@ -135,7 +168,17 @@ class _AlarmScreenState extends State<AlarmScreen> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('Edit Title'),
+                              backgroundColor: AppColorPalette.alarmAddScreenBackgroundColor,
+                              title: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Edit Title',
+                                  style: TextStyle(
+                                    color: AppColorPalette
+                                        .alaramAddScreenTextColor,
+                                  ),
+                                ),
+                              ),
                               content: TextField(
                                 onChanged: (value) {
                                   _selectedTitle = value;
@@ -144,13 +187,22 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                     TextEditingController(text: _selectedTitle),
                               ),
                               actions: <Widget>[
-                                TextButton(
-                                  child: Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    setModalState(() {});
-                                  },
-                                ),
+                                SizedBox(height: 10),
+                                Center(
+                                  child: TextButton(
+                                    child: Text(
+                                      'OK',
+                                      style: TextStyle(
+                                        color: AppColorPalette
+                                            .alaramAddScreenTextColor,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      setModalState(() {});
+                                    },
+                                  ),
+                                )
                               ],
                             );
                           },
@@ -158,12 +210,15 @@ class _AlarmScreenState extends State<AlarmScreen> {
                       },
                     ),
                   ),
+                  Spacer(flex: 4),
                   FloatingActionButton.extended(
                     onPressed: () {
                       onSaveAlarm(selectedAlarm);
                     },
                     icon: Icon(Icons.alarm),
                     label: Text(selectedAlarm == null ? 'Save' : 'Update'),
+                    backgroundColor: AppColorPalette.alaramAddScreenButtonColor,
+                    foregroundColor: AppColorPalette.alaramAddScreenButtonTextColor,
                   ),
                 ],
               ),
@@ -269,7 +324,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
                               onPressed: (BuildContext context) =>
                                   deleteAlarm(alarm.id),
                               backgroundColor: Colors.transparent,
-                              foregroundColor: Colors.white,
+                              foregroundColor:
+                                  AppColorPalette.alarmDeleteButton,
                               icon: Icons.delete,
                               label: 'Delete',
                               flex: 2,
@@ -283,7 +339,7 @@ class _AlarmScreenState extends State<AlarmScreen> {
                           onTap: () =>
                               openAlarmBottomSheet(selectedAlarm: alarm),
                           child: Container(
-                            margin: const EdgeInsets.only(bottom: 16),
+                            margin: const EdgeInsets.only(bottom: 24),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 8),
                             decoration: BoxDecoration(
@@ -313,7 +369,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                     Text(
                                       alarmTime,
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: AppColorPalette
+                                              .alarmItemTextColor[0],
                                           fontFamily: 'avenir',
                                           fontSize: 24,
                                           fontWeight: FontWeight.w700),
@@ -321,7 +378,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                     Text(
                                       '${alarm.alarmDateTime?.day}',
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: AppColorPalette
+                                              .alarmItemTextColor[0],
                                           fontFamily: 'avenir',
                                           fontSize: 24,
                                           fontWeight: FontWeight.w700),
@@ -336,14 +394,16 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                       children: <Widget>[
                                         Icon(
                                           Icons.label,
-                                          color: Colors.white,
+                                          color: AppColorPalette
+                                              .alarmItemTextColor[0],
                                           size: 24,
                                         ),
                                         SizedBox(width: 8),
                                         Text(
                                           alarm.title!,
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: AppColorPalette
+                                                  .alarmItemTextColor[0],
                                               fontFamily: 'avenir'),
                                         ),
                                       ],
@@ -351,7 +411,14 @@ class _AlarmScreenState extends State<AlarmScreen> {
                                     Switch(
                                       onChanged: (bool value) {},
                                       value: alarm.status == 1 ? true : false,
-                                      activeColor: Colors.white,
+                                      activeColor:
+                                          AppColorPalette.alarmItemTextColor[0],
+                                      activeTrackColor:
+                                          AppColorPalette.alarmItemTextColor[1],
+                                      inactiveThumbColor:
+                                          AppColorPalette.alarmItemTextColor[1],
+                                      inactiveTrackColor:
+                                          AppColorPalette.alarmItemTextColor[0],
                                     ),
                                   ],
                                 ),
@@ -363,14 +430,14 @@ class _AlarmScreenState extends State<AlarmScreen> {
                     }).followedBy([
                       DottedBorder(
                         strokeWidth: 2,
-                        color: AppColorPalette.clockOutline,
+                        color: AppColorPalette.alarmItemTextColor[0],
                         borderType: BorderType.RRect,
                         radius: Radius.circular(24),
                         dashPattern: [5, 4],
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: AppColorPalette.clockBG,
+                            color: AppColorPalette.alarmAddBackgroundColor,
                             borderRadius: BorderRadius.all(Radius.circular(24)),
                           ),
                           child: MaterialButton(
@@ -381,13 +448,15 @@ class _AlarmScreenState extends State<AlarmScreen> {
                               children: <Widget>[
                                 Image.asset(
                                   'assets/add_alarm.png',
+                                  color: AppColorPalette.alarmItemTextColor[0],
                                   scale: 1.5,
                                 ),
                                 SizedBox(height: 8),
                                 Text(
                                   'Add Alarm',
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color:
+                                          AppColorPalette.alarmItemTextColor[0],
                                       fontFamily: 'avenir'),
                                 ),
                               ],
@@ -401,7 +470,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
                 return Center(
                   child: Text(
                     'Loading..',
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(color: AppColorPalette.alarmItemTextColor[0]),
                   ),
                 );
               },
