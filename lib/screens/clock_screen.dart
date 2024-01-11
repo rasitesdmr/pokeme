@@ -80,7 +80,7 @@ class _ClockScreenState extends State<ClockScreen> {
                 }
                 return Container(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 64),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -89,7 +89,7 @@ class _ClockScreenState extends State<ClockScreen> {
                         child: Text(
                           'Saat',
                           style: TextStyle(
-                            color: Color(0xFF2D2F41),
+                            color: Colors.white,
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),

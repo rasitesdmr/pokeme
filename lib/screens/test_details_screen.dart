@@ -170,9 +170,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                 const SizedBox(height: 80),
                 ElevatedButton(
                   onPressed: () {
-                    navigatorKey.currentState?.push(
-                      MaterialPageRoute(builder: (context) => TodoScreen()),
-                    );
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF07161B),
