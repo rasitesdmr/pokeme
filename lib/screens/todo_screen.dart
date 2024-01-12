@@ -1463,7 +1463,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       color: AppColorPalette.todoTextColor[0],
                       fontSize: 24),
                 ),
-                SizedBox(width: 250),
+                SizedBox(width: 200),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: AppColorPalette.todoTextColor[0]),
