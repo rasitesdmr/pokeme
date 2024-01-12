@@ -23,10 +23,11 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
 
   void fetchTodoDetails() async {
     // Payload'tan todo ID'sini alın. Örnek payload: "todoId:3"
-    final todoId = int.parse(widget.payload.split(":")[1]);
+    final reminderId = int.parse(widget.payload.split(":")[1]);
 
     TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
-    Todo? fetchedTodo = await todoDatabaseManager.getTodoById(todoId);
+    Todo? fetchedTodo =
+        await todoDatabaseManager.getTodoByReminderAlarmId(reminderId);
 
     if (mounted) {
       setState(() {
@@ -43,7 +44,6 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
       todoHour = todo?.alarmDateTime?.hour;
       todoMinute = todo?.alarmDateTime?.minute;
     }
-    ;
     return MaterialApp(
       home: Scaffold(
         backgroundColor: const Color(0xFF3D737F),
@@ -53,7 +53,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -65,7 +65,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 50),
+                SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -76,9 +76,9 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                           color: const Color(0xFFCEC7BF),
                           borderRadius: BorderRadius.circular(10),
                           shape: BoxShape.rectangle),
-                      child: const Center(
+                      child: Center(
                         child: Text(
-                          '',
+                          '${todo?.title ?? ''}',
                           style: TextStyle(
                               color: Color(0xFF07161B),
                               fontSize: 35,
@@ -88,12 +88,12 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                     )
                   ],
                 ),
-                const SizedBox(height: 5),
-                const Row(
+                SizedBox(height: 5),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '10 dakika kaldı',
+                      '${todo!.alarmDateTime!.minute - todo!.reminderDateTime!.minute} dakika kaldı',
                       style: TextStyle(
                         color: Color(0xFFCEC7BF),
                         fontSize: 18,
@@ -124,8 +124,8 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                             ),
                           ),
                           const Spacer(flex: 10),
-                          const Text(
-                            'Görev 1',
+                          Text(
+                            todo?.text1 ?? '',
                             style: TextStyle(
                               color: Color(0xFF07161B),
                               fontSize: 15,
@@ -137,8 +137,8 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                             color: Color(0xFF07161B),
                           ),
                           const Spacer(flex: 9),
-                          const Text(
-                            'Görev 2',
+                          Text(
+                            todo?.text2 ?? '',
                             style: TextStyle(
                               color: Color(0xFF07161B),
                               fontSize: 15,
@@ -150,8 +150,8 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                             color: Color(0xFF07161B),
                           ),
                           const Spacer(flex: 9),
-                          const Text(
-                            'Görev 3',
+                          Text(
+                            todo?.text3 ?? '',
                             style: TextStyle(
                               color: Color(0xFF07161B),
                               fontSize: 15,
@@ -177,7 +177,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                     minimumSize: const Size(150, 70),
                   ),
                   child: const Text(
-                    'Tamam',
+                    'Ok',
                     style: TextStyle(
                       fontSize: 25,
                       color: Color(0xFFCEC7BF),

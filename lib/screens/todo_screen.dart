@@ -1118,7 +1118,7 @@ class _TodoScreenState extends State<TodoScreen> {
     AlarmNotificationManager.displayAlarmWithAction(
       id: alarmDateTimeId,
       title: todo!.title!,
-      body: "Todo Zamanı",
+      body: "Your time has come",
       payload: 'Alarm Payload',
       soundMusicPath: soundMusicPath,
     );
@@ -1143,8 +1143,8 @@ class _TodoScreenState extends State<TodoScreen> {
 
     AlarmNotificationManager.sendReminderTodoNotification(
       title: todo!.title!,
-      body: "Todo Zamanı",
-      payload: 'todoId:${todo.id}',
+      body: "Your time is approaching",
+      payload: 'todoId:${todo.reminderAlarmId}',
     );
   }
 
