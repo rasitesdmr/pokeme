@@ -58,7 +58,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'HATIRLATMA',
+                      'REMAINDER',
                       style: TextStyle(
                           color: Color(0xFFCEC7BF),
                           fontSize: 35,
@@ -94,7 +94,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${todo!.alarmDateTime!.minute - todo!.reminderDateTime!.minute} dakika kaldı',
+                      '${todo!.alarmDateTime!.minute - todo!.reminderDateTime!.minute} minutes left',
                       style: TextStyle(
                         color: Color(0xFFCEC7BF),
                         fontSize: 18,
