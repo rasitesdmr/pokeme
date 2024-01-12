@@ -22,3 +22,10 @@
 <p align="center">
   <img src="https://github.com/rasitesdmr/pokeme/blob/main/video/pokeme5.gif" width="360">
 </p>
+
+# Developers of the app
+
+* [Esma Harmancı](https://github.com/Esmahr)
+* [Yusuf Elmas](https://github.com/Yeness)
+* [Burhan Kavak](https://github.com/BurhanKavak)
+* [Darin Hacbekri](https://github.com/DarenHacbekri)
