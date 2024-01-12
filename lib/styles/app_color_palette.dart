@@ -32,7 +32,18 @@ class AppColorPalette {
   static Color alaramAddScreenButtonColor = Color(0xFF1C3039);
   static Color alaramAddScreenButtonTextColor = Color(0xFFD9D9D9);
 
+  static List<Color> todoTextColor = [Color(0xFFCEC7BF), Color(0xFF07161B)];
+  static Color todoBorderColor = Color(0xFFCEC7BF);
+  static Color todoUncomplatedContainerColor = Color(0xFFD9D9D9);
+  static Color todoComplatedContainerColor = Color(0xFF538F99);
+  static Color todoContainerBorderColor = Color(0xFF07161B);
+  static List<Color> todoCheckButtonColor = [Color(0xFFD9D9D9) ,Color(0xFF07161B)];
 
+  static Color todoAddScreenBackgroundColor = Color(0xFFD9D9D9);
+  static Color todoAddScreenTextColor = Color(0xFF1C3039);
+  static Color todoAddScreenButtonColor = Color(0xFF1C3039);
+  static Color todoAddScreenButtonTextColor = Color(0xFFD9D9D9);
+  static List<Color> todoUpdateScreenButtonColor = [Color(0xFF8e261e), Color(0xFF538F99), Color(0xFF1C3039)];
 }
 
 class GradientColors {
