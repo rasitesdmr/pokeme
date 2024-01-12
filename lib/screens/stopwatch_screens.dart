@@ -38,7 +38,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
   }
 
   String _calculateTotalTime() {
-    int totalSeconds = laps.fold<int>(0, (previous, lap) => previous + (lap['tur_suresi'] as int? ?? 0));
+    int totalSeconds = laps.fold<int>(0, (previous, lap) => previous + (lap['tour_duration'] as int? ?? 0));
     int totalHours = totalSeconds ~/ 3600;
     int totalMinutes = (totalSeconds % 3600) ~/ 60;
     int totalRemainingSeconds = totalSeconds % 60;
@@ -52,9 +52,9 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
     String lapTime = _formatTime(currentSeconds);
 
     Map<String, dynamic> lapData = {
-      'tur': laps.length + 1,
-      'tur_suresi': (laps.isEmpty) ? "0:00:00" : _calculateDifference(lapTime),
-      'toplam_sure': (laps.isEmpty) ? "0:00:00" : lapTime,
+      'tour': laps.length + 1,
+      'tour_duration': (laps.isEmpty) ? "0:00:00" : _calculateDifference(lapTime),
+      'total_duration': (laps.isEmpty) ? "0:00:00" : lapTime,
     };
 
     setState(() {
@@ -65,7 +65,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
   String _calculateDifference(String currentLapTime) {
     int currentSeconds = _calculateSeconds(currentLapTime);
 
-    String previousLapTime = laps.last['toplam_sure'];
+    String previousLapTime = laps.last['total_duration'];
     int previousSeconds = _calculateSeconds(previousLapTime);
 
     int differenceSeconds = currentSeconds - previousSeconds;
@@ -159,7 +159,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColorPalette.pageBackgroundColor[1],
+      backgroundColor: AppColorPalette.pageBackgroundColor[0],
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0, top: 40.0),
@@ -172,7 +172,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                 child: Column(
                   children: [
                     Text(
-                      "Kronometre",
+                      "StopWatch",
                       style: TextStyle(
                         color: AppColorPalette.primaryTextColor[0],
                         fontSize: 28.0,
@@ -210,7 +210,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Tur",
+                            "Tour",
                             style: TextStyle(
                               color: AppColorPalette.primaryTextColor[0],
                               fontSize: 16.0,
@@ -218,7 +218,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                             ),
                           ),
                           Text(
-                            "Tur süresi",
+                            "Tour duration",
                             style: TextStyle(
                               color: AppColorPalette.primaryTextColor[0],
                               fontSize: 16.0,
@@ -226,7 +226,7 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                             ),
                           ),
                           Text(
-                            "Toplam Süre",
+                            "Total Duration",
                             style: TextStyle(
                               color: AppColorPalette.primaryTextColor[0],
                               fontSize: 16.0,
@@ -244,21 +244,21 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "${lap['tur']}",
+                              "${lap['tour']}",
                               style: TextStyle(
                                 color: AppColorPalette.primaryTextColor[0],
                                 fontSize: 16.0,
                               ),
                             ),
                             Text(
-                              "${lap['tur_suresi']} saniye",
+                              "${lap['tour_duration']} second",
                               style: TextStyle(
                                 color: AppColorPalette.primaryTextColor[0],
                                 fontSize: 16.0,
                               ),
                             ),
                             Text(
-                              "${lap['toplam_sure'] ?? '0:00:00'}",
+                              "${lap['total_duration'] ?? '0:00:00'}",
                               style: TextStyle(
                                 color: AppColorPalette.primaryTextColor[0],
                                 fontSize: 16.0,
@@ -296,11 +296,11 @@ class _StopWatchScreenState extends State<StopWatchScreen> {
                       (!started) ? start() : stop();
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColorPalette.buttonColor,
+                      backgroundColor: AppColorPalette.stopWatchButtonColor,
                       minimumSize: const Size(130, 40),
                     ),
                     child: Text(
-                      (!started) ? "Başlat" : "Durdur",
+                      (!started) ? "Start" : "Stop",
                       style: TextStyle(color: AppColorPalette.primaryTextColor[0],
                       fontWeight: FontWeight.bold,
                         fontSize: 17
