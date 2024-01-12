@@ -1,2 +1,2 @@
 ## Clock 
-![Örnek GIF](video\pokeme1.gif)
+![Örnek GIF](https://github.com/rasitesdmr/pokeme/tree/main/video)
