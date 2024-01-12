@@ -423,6 +423,8 @@ class _TodoScreenState extends State<TodoScreen> {
     _selectedText3 = selectedTodo?.text3 ?? '';
 
     List<int> reminderOptions = [
+      1,
+      2,
       5,
       10,
       15,
