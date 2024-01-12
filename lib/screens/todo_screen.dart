@@ -57,7 +57,7 @@ class _TodoScreenState extends State<TodoScreen> {
   void initState() {
     super.initState();
     _todoDatabaseManager.initializeDatabase().then(
-      (value) {
+          (value) {
         loadTodos();
       },
     );
@@ -72,7 +72,7 @@ class _TodoScreenState extends State<TodoScreen> {
 
     if (mounted) {
       setState(
-        () {
+            () {
           _expandedList = List.generate(fetchedTodos.length, (index) => false);
         },
       );
@@ -144,7 +144,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         title = value;
@@ -216,7 +216,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         tast1 = value;
@@ -290,7 +290,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         tast2 = value;
@@ -364,7 +364,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         tast3 = value;
@@ -400,7 +400,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   ),
                   ElevatedButton(
                     child:
-                        Text('Update', style: TextStyle(color: Colors.white)),
+                    Text('Update', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(primary: Colors.green),
                     onPressed: () {
                       updateTodo(todo);
@@ -461,6 +461,7 @@ class _TodoScreenState extends State<TodoScreen> {
         return StatefulBuilder(
           builder: (context, setModalState) {
             return Container(
+              color: AppColorPalette.todoAddScreenBackgroundColor,
               padding: const EdgeInsets.all(32),
               child: Column(
                 children: [
@@ -468,87 +469,84 @@ class _TodoScreenState extends State<TodoScreen> {
                     height: 100,
                   ),
                   Container(
+                    alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.transparent,
                     ),
                     child: Row(
                       children: [
                         SizedBox(
                           width: 80,
                         ),
-                        TextButton(
-                          onPressed: () async {
-                            final now = DateTime.now();
+                        Center(
+                          child: TextButton(
+                            onPressed: () async {
+                              final now = DateTime.now();
 
-                            final selectedDate = await showDatePicker(
+                              final selectedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate:
+                                  selectedTodo?.alarmDateTime ?? now,
+                                  firstDate: now,
+                                  lastDate: DateTime(2101),
+                                  locale: const Locale('tr', 'TR'));
+
+                              var selectedTime = await showTimePicker(
                                 context: context,
-                                initialDate: selectedTodo?.alarmDateTime ?? now,
-                                firstDate: now,
-                                lastDate: DateTime(2101),
-                                locale: const Locale('tr', 'TR'));
-
-                            var selectedTime = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                              builder: (BuildContext context, Widget? child) {
-                                return MediaQuery(
-                                  data: MediaQuery.of(context)
-                                      .copyWith(alwaysUse24HourFormat: true),
-                                  child: child!,
-                                );
-                              },
-                            );
-                            if (selectedTime != null) {
-                              var selectedDateTime = DateTime(
-                                selectedDate!.year,
-                                selectedDate.month,
-                                selectedDate.day,
-                                selectedTime.hour,
-                                selectedTime.minute,
-                              );
-                              _alarmTime = selectedDateTime;
-                              setModalState(
-                                () {
-                                  _alarmTimeString = DateFormat('HH:mm')
-                                      .format(selectedDateTime);
+                                initialTime: TimeOfDay.now(),
+                                builder: (BuildContext context, Widget? child) {
+                                  return MediaQuery(
+                                    data: MediaQuery.of(context)
+                                        .copyWith(alwaysUse24HourFormat: true),
+                                    child: child!,
+                                  );
                                 },
                               );
-                            }
-                          },
-                          child: Text(
-                            _alarmTimeString,
-                            style: TextStyle(fontSize: 32),
+                              if (selectedTime != null) {
+                                var selectedDateTime = DateTime(
+                                  selectedDate!.year,
+                                  selectedDate.month,
+                                  selectedDate.day,
+                                  selectedTime.hour,
+                                  selectedTime.minute,
+                                );
+                                _alarmTime = selectedDateTime;
+                                setModalState(
+                                      () {
+                                    _alarmTimeString = DateFormat('HH:mm')
+                                        .format(selectedDateTime);
+                                  },
+                                );
+                              }
+                            },
+                            child: Text(
+                              _alarmTimeString,
+                              style: TextStyle(
+                                  fontSize: 40,
+                                  color:
+                                  AppColorPalette.todoAddScreenTextColor),
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
-
+                  Spacer(flex: 3),
                   // ---------------------------------------
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.transparent,
                     ),
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(
-                            'Başlık: $_selectedTodoTitle',
+                            'Title: $_selectedTodoTitle',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: AppColorPalette.todoAddScreenTextColor,
                             ),
                           ),
                         ),
@@ -571,7 +569,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         _selectedTodoTitle = value;
@@ -602,21 +600,17 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 5),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.transparent,
                     ),
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(
-                            'Görev 1: $_selectedText1',
+                            'Task 1: $_selectedText1',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -642,7 +636,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         _selectedText1 = value;
@@ -673,21 +667,17 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 5),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.transparent,
                     ),
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(
-                            'Görev 2: $_selectedText2',
+                            'Task 2: $_selectedText2',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -713,7 +703,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         _selectedText2 = value;
@@ -744,21 +734,17 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 5),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.transparent,
                     ),
                     child: Row(
                       children: [
                         Expanded(
                           child: Text(
-                            'Görev 3: $_selectedText3',
+                            'Task 3: $_selectedText3',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -784,7 +770,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         _selectedText3 = value;
@@ -815,15 +801,11 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 5),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.transparent,
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<int>(
@@ -850,21 +832,22 @@ class _TodoScreenState extends State<TodoScreen> {
                             .map<DropdownMenuItem<int>>((int value) {
                           return DropdownMenuItem<int>(
                             value: value,
-                            child: Text('$value dakika önce'),
+                            child: Text(
+                              '$value minutes ago,',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           );
                         }).toList(),
                       ),
                     ),
                   ),
+                  SizedBox(height: 5),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.transparent,
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
@@ -886,22 +869,29 @@ class _TodoScreenState extends State<TodoScreen> {
                             .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           );
                         }).toList(),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  // ---------------------------------------
+                  Spacer(flex: 3),
                   FloatingActionButton.extended(
                     onPressed: () {
                       onSaveTodo(selectedTodo: selectedTodo);
                     },
                     icon: Icon(Icons.alarm),
                     label: Text('Save'),
+                    backgroundColor: AppColorPalette.alaramAddScreenButtonColor,
+                    foregroundColor: AppColorPalette.alaramAddScreenButtonTextColor,
                   ),
+                  SizedBox(height: 20),
                 ],
               ),
             );
@@ -1006,32 +996,40 @@ class _TodoScreenState extends State<TodoScreen> {
   }
 
   Widget buildTaskItem(String? text, int? status) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 4),
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: <Widget>[
-          Icon(
-            status == 1 ? Icons.check_circle : Icons.radio_button_unchecked,
-            color: status == 1 ? Colors.green : Colors.grey,
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return Container(
+          width: constraints.maxWidth - 20,
+          margin: EdgeInsets.symmetric(vertical: 4),
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(color: AppColorPalette.todoContainerBorderColor),
+            borderRadius: BorderRadius.circular(20),
           ),
-          SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text ?? '',
-              style: TextStyle(
-                color: Colors.black,
-                decoration: status == 1 ? TextDecoration.lineThrough : null,
+          child: Row(
+            children: <Widget>[
+              Icon(
+                status == 1 ? Icons.circle : Icons.radio_button_unchecked,
+                color: status == 1
+                    ? AppColorPalette.todoCheckButtonColor[1]
+                    : AppColorPalette.todoCheckButtonColor[1],
               ),
-            ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  text ?? '',
+                  style: TextStyle(
+                    color: AppColorPalette.todoTextColor[1],
+                    fontWeight: FontWeight.bold,
+                    decoration: status == 1 ? TextDecoration.lineThrough : null,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -1097,8 +1095,8 @@ class _TodoScreenState extends State<TodoScreen> {
     AlarmNotificationManager.cancelAllNotifications();
   }
 
-  Future<void> scheduleAlarm(
-      DateTime scheduledNotificationDateTime, int alarmDateTimeId) async {
+  Future<void> scheduleAlarm(DateTime scheduledNotificationDateTime,
+      int alarmDateTimeId) async {
     await AndroidAlarmManager.oneShotAt(
       scheduledNotificationDateTime,
       alarmDateTimeId,
@@ -1112,7 +1110,7 @@ class _TodoScreenState extends State<TodoScreen> {
   static Future<void> alarmCallback(int alarmDateTimeId) async {
     TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
     var todo =
-        await todoDatabaseManager.getTodoByAlarmDateTimeId(alarmDateTimeId);
+    await todoDatabaseManager.getTodoByAlarmDateTimeId(alarmDateTimeId);
     String soundMusicPath = getSoundPath(todo!.soundPath!);
 
     AlarmNotificationManager.displayAlarmWithAction(
@@ -1124,8 +1122,8 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
-  Future<void> scheduleReminder(
-      DateTime scheduledNotificationDateTime, int reminderAlarmId) async {
+  Future<void> scheduleReminder(DateTime scheduledNotificationDateTime,
+      int reminderAlarmId) async {
     await AndroidAlarmManager.oneShotAt(
       scheduledNotificationDateTime,
       reminderAlarmId,
@@ -1139,7 +1137,7 @@ class _TodoScreenState extends State<TodoScreen> {
   static Future<void> alarmReminderCallback(int reminderAlarmId) async {
     TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
     var todo =
-        await todoDatabaseManager.getTodoByReminderAlarmId(reminderAlarmId);
+    await todoDatabaseManager.getTodoByReminderAlarmId(reminderAlarmId);
 
     AlarmNotificationManager.sendReminderTodoNotification(
       title: todo!.title!,
@@ -1181,35 +1179,38 @@ class _TodoScreenState extends State<TodoScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          '${selectedTodo!.alarmDateTime?.day}/${selectedTodo!.alarmDateTime?.month}/${selectedTodo!.alarmDateTime?.year}'),
+                          '${selectedTodo!.alarmDateTime?.day}/${selectedTodo!
+                              .alarmDateTime?.month}/${selectedTodo!
+                              .alarmDateTime?.year}'),
                       SizedBox(
                         width: 20,
                       ),
                       Text(
-                          '${selectedTodo!.alarmDateTime?.hour}:${selectedTodo!.alarmDateTime?.minute}'),
+                          '${selectedTodo!.alarmDateTime?.hour}:${selectedTodo!
+                              .alarmDateTime?.minute}'),
                     ],
                   ),
                   if (selectedTodo?.text1?.isNotEmpty == true)
                     buildStatusItem(
                         'Task : ${selectedTodo?.text1}', _selectedText1Status,
-                        (newValue) {
-                      _selectedText1Status = newValue;
-                      selectedTodo.text1Status = _selectedText1Status;
-                      setModalState(() {});
-                    }),
+                            (newValue) {
+                          _selectedText1Status = newValue;
+                          selectedTodo.text1Status = _selectedText1Status;
+                          setModalState(() {});
+                        }),
                   if (selectedTodo?.text2?.isNotEmpty == true)
                     buildStatusItem(
                         'Task : ${selectedTodo?.text2}', _selectedText2Status,
-                        (newValue) {
-                      _selectedText2Status = newValue;
-                      selectedTodo.text2Status = _selectedText2Status;
-                      setModalState(() {});
-                    }),
+                            (newValue) {
+                          _selectedText2Status = newValue;
+                          selectedTodo.text2Status = _selectedText2Status;
+                          setModalState(() {});
+                        }),
                   if (selectedTodo?.text3?.isNotEmpty == true)
                     buildStatusItem(
                       'Task : ${selectedTodo?.text3}',
                       _selectedText3Status,
-                      (newValue) {
+                          (newValue) {
                         _selectedText3Status = newValue;
                         selectedTodo.text3Status = _selectedText3Status;
                         setModalState(() {});
@@ -1259,8 +1260,8 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
-  Widget buildStatusItem(
-      String title, int status, Function(int) onStatusChanged) {
+  Widget buildStatusItem(String title, int status,
+      Function(int) onStatusChanged) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -1286,26 +1287,29 @@ class _TodoScreenState extends State<TodoScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   'Todo',
                   style: TextStyle(
                       fontFamily: 'avenir',
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      color: AppColorPalette.todoTextColor[0],
                       fontSize: 24),
                 ),
+                SizedBox(width: 250),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
+                    border: Border.all(color: AppColorPalette.todoTextColor[0]),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: IconButton(
-                    icon: Icon(Icons.add, color: Colors.white),
+                    icon: Icon(Icons.add,
+                        color: AppColorPalette.todoTextColor[0]),
                     onPressed: () => openTodoBottomSheet(),
                   ),
                 ),
+                SizedBox(width: 10),
               ],
             ),
           ),
@@ -1323,11 +1327,12 @@ class _TodoScreenState extends State<TodoScreen> {
                       final Todo? todo = _todos![index];
 
                       // Kartın rengini belirle
-                      Color cardColor = Colors.white; // Varsayılan kart rengi
+                      Color cardColor = AppColorPalette
+                          .todoUncomplatedContainerColor; // Varsayılan kart rengi
                       bool isCompleted = false;
 
                       if ((todo?.text1?.isNotEmpty == true &&
-                              todo?.text1Status == 1) ||
+                          todo?.text1Status == 1) ||
                           (todo?.text2?.isNotEmpty == true &&
                               todo?.text2Status == 1) ||
                           (todo?.text3?.isNotEmpty == true &&
@@ -1337,22 +1342,23 @@ class _TodoScreenState extends State<TodoScreen> {
 
                       // Tüm metin alanlarının boş olup olmadığını kontrol et
                       if ((todo?.text1?.isEmpty == true ||
-                              todo?.text1Status == 0) &&
+                          todo?.text1Status == 0) &&
                           (todo?.text2?.isEmpty == true ||
                               todo?.text2Status == 0) &&
                           (todo?.text3?.isEmpty == true ||
                               todo?.text3Status == 0)) {
                         isCompleted =
-                            false; // Eğer tüm alanlar boşsa veya tamamlanmamışsa
+                        false; // Eğer tüm alanlar boşsa veya tamamlanmamışsa
                       }
 
                       if (isCompleted) {
-                        cardColor = Colors.green; // Yeşil renk
+                        cardColor = AppColorPalette
+                            .todoComplatedContainerColor; // Yeşil renk
                       }
                       return GestureDetector(
                         onTap: () {
                           setState(
-                            () {
+                                () {
                               _expandedList[index] = !_expandedList[index];
                             },
                           );
@@ -1373,17 +1379,21 @@ class _TodoScreenState extends State<TodoScreen> {
                                     contentPadding: EdgeInsets.symmetric(
                                         horizontal: 20.0, vertical: 8.0),
                                     leading: _expandedList[index]
-                                        ? Icon(Icons.done,
-                                            color: Colors
-                                                .green) // Genişletildiğinde gösterilecek ikon
-                                        : Icon(Icons.ac_unit_sharp,
-                                            color: Colors.amberAccent),
+                                        ? Icon(Icons.keyboard_arrow_up,
+                                        color: AppColorPalette
+                                            .todoTextColor[
+                                        1]) // Genişletildiğinde gösterilecek ikon
+                                        : Icon(Icons.keyboard_arrow_down,
+                                        color: AppColorPalette
+                                            .todoTextColor[1]),
                                     title: Text(
                                       todo?.title ?? 'Default Title',
                                       style: TextStyle(
+                                        color: AppColorPalette.todoTextColor[1],
+                                        fontWeight: FontWeight.bold,
                                         decoration: (todo?.todoStatus == 1
-                                                ? true
-                                                : false)
+                                            ? true
+                                            : false)
                                             ? TextDecoration.lineThrough
                                             : TextDecoration.none,
                                       ),
@@ -1392,12 +1402,16 @@ class _TodoScreenState extends State<TodoScreen> {
                                         onPressed: () =>
                                             openTextStatusBottomSheet(
                                                 selectedTodo: todo),
-                                        icon: Icon(Icons.edit))),
+                                        icon: Icon(
+                                          Icons.edit,
+                                          color:
+                                          AppColorPalette.todoTextColor[1],
+                                        ))),
                                 AnimatedCrossFade(
                                   firstChild: Container(),
                                   secondChild: Padding(
                                     padding:
-                                        EdgeInsets.symmetric(vertical: 8.0),
+                                    EdgeInsets.symmetric(vertical: 8.0),
                                     child: buildExpandableContent(
                                         todo!), // İçeriği Eklenecek
                                   ),
@@ -1416,8 +1430,10 @@ class _TodoScreenState extends State<TodoScreen> {
                 } else {
                   return Center(
                     child: Text(
-                      'Henüz bir todo yok.',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                      'You don\'t have any Todo',
+                      style: TextStyle(
+                          color: AppColorPalette.todoTextColor[0],
+                          fontSize: 18),
                     ),
                   );
                 }
