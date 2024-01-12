@@ -17,7 +17,8 @@ class AppColorPalette {
   static Color hourHandStatColor = Color(0xFFC279FB);
   static Color hourHandEndColor = Color(0xFFEA74AB);
 
-  static Color stopWatchTourScreenColor = Color(0xFF4F95A5);
+  static Color stopWatchTourScreenColor = Color(0xFF3D737F);
+  static Color stopWatchButtonColor = Color(0xFF3D737F);
 
   static List<Color> alarmItemBackgraoundColor = [Color(0xFF2E505F), Color(0xFF538F99), Color(0xFFa5a5a5)];
   static List<Color> alarmItemTextColor = [Color(0xFFD9D9D9), Color(0xFF1C3039)];

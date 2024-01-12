@@ -6,6 +6,7 @@ import 'package:pokeme/screens/todo_screen.dart';
 
 class TestDetailsScreen extends StatefulWidget {
   final String payload;
+
   const TestDetailsScreen({Key? key, required this.payload}) : super(key: key);
 
   @override
@@ -78,7 +79,7 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                           shape: BoxShape.rectangle),
                       child: Center(
                         child: Text(
-                          '${todo?.title ?? ''}',
+                          '${todo?.alarmDateTime?.hour ?? ''}:${todo?.alarmDateTime?.minute ?? ''}',
                           style: TextStyle(
                               color: Color(0xFF07161B),
                               fontSize: 35,
@@ -116,8 +117,8 @@ class _TestDetailsScreenState extends State<TestDetailsScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            '',
+                          Text(
+                            todo?.title ?? '',
                             style: TextStyle(
                               color: Color(0xFF07161B),
                               fontSize: 20,
