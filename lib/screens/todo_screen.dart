@@ -463,9 +463,13 @@ class _TodoScreenState extends State<TodoScreen> {
                   ),
                   Spacer(),
                   ElevatedButton(
-                    child:
-                        Text('Update', style: TextStyle(color: AppColorPalette.todoAddScreenButtonTextColor)),
-                    style: ElevatedButton.styleFrom(backgroundColor: AppColorPalette.todoUpdateScreenButtonColor[1]),
+                    child: Text('Update',
+                        style: TextStyle(
+                            color:
+                                AppColorPalette.todoAddScreenButtonTextColor)),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            AppColorPalette.todoUpdateScreenButtonColor[1]),
                     onPressed: () {
                       updateTodo(todo);
                     },
@@ -1371,8 +1375,12 @@ class _TodoScreenState extends State<TodoScreen> {
                     children: [
                       ElevatedButton(
                         child: Text('Delete',
-                            style: TextStyle(color: AppColorPalette.alaramAddScreenButtonTextColor)),
-                        style: ElevatedButton.styleFrom(backgroundColor: AppColorPalette.todoUpdateScreenButtonColor[0]),
+                            style: TextStyle(
+                                color: AppColorPalette
+                                    .alaramAddScreenButtonTextColor)),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                AppColorPalette.todoUpdateScreenButtonColor[0]),
                         onPressed: () {
                           deleteTodo(selectedTodo?.id);
                         },
@@ -1382,8 +1390,12 @@ class _TodoScreenState extends State<TodoScreen> {
                       ),
                       ElevatedButton(
                         child: Text('Update',
-                            style: TextStyle(color: AppColorPalette.alaramAddScreenButtonTextColor)),
-                        style: ElevatedButton.styleFrom(backgroundColor: AppColorPalette.todoUpdateScreenButtonColor[1]),
+                            style: TextStyle(
+                                color: AppColorPalette
+                                    .alaramAddScreenButtonTextColor)),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                AppColorPalette.todoUpdateScreenButtonColor[1]),
                         onPressed: () {
                           openTodoUpdateBottomSheet(selectedTodo);
                         },
@@ -1393,8 +1405,12 @@ class _TodoScreenState extends State<TodoScreen> {
                       ),
                       ElevatedButton(
                         child: Text(' Save ',
-                            style: TextStyle(color: AppColorPalette.alaramAddScreenButtonTextColor)),
-                        style: ElevatedButton.styleFrom(backgroundColor: AppColorPalette.todoUpdateScreenButtonColor[2]),
+                            style: TextStyle(
+                                color: AppColorPalette
+                                    .alaramAddScreenButtonTextColor)),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                AppColorPalette.todoUpdateScreenButtonColor[2]),
                         onPressed: () {
                           updateTodo(selectedTodo!);
                         },
