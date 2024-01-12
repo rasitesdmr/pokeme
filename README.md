@@ -24,7 +24,7 @@
 </p>
 
 # Developers of the app
-
+* [Raşit Eşdemir](https://github.com/rasitesdmr)
 * [Esma Harmancı](https://github.com/Esmahr)
 * [Yusuf Elmas](https://github.com/Yeness)
 * [Burhan Kavak](https://github.com/BurhanKavak)
