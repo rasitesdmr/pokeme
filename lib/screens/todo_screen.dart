@@ -57,7 +57,7 @@ class _TodoScreenState extends State<TodoScreen> {
   void initState() {
     super.initState();
     _todoDatabaseManager.initializeDatabase().then(
-          (value) {
+      (value) {
         loadTodos();
       },
     );
@@ -72,7 +72,7 @@ class _TodoScreenState extends State<TodoScreen> {
 
     if (mounted) {
       setState(
-            () {
+        () {
           _expandedList = List.generate(fetchedTodos.length, (index) => false);
         },
       );
@@ -107,11 +107,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -133,18 +129,23 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Current Title'),
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Current Task'),
+                                  ),
                                   content: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: AppColorPalette
+                                          .todoAddScreenBackgroundColor,
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: AppColorPalette
+                                            .todoAddScreenBackgroundColor,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 8),
+                                        EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         title = value;
@@ -160,12 +161,26 @@ class _TodoScreenState extends State<TodoScreen> {
                                     ),
                                   ),
                                   actions: <Widget>[
-                                    TextButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        setModalState(() {});
-                                      },
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: AppColorPalette
+                                                    .todoAddScreenButtonColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              setModalState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
@@ -176,14 +191,11 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -205,18 +217,23 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Current Task'),
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Current Task'),
+                                  ),
                                   content: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: AppColorPalette
+                                          .todoAddScreenBackgroundColor,
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: AppColorPalette
+                                            .todoAddScreenBackgroundColor,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 8),
+                                        EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         tast1 = value;
@@ -234,12 +251,26 @@ class _TodoScreenState extends State<TodoScreen> {
                                     ),
                                   ),
                                   actions: <Widget>[
-                                    TextButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        setModalState(() {});
-                                      },
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: AppColorPalette
+                                                    .todoAddScreenButtonColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              setModalState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
@@ -250,14 +281,11 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -279,18 +307,23 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Current Task'),
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Current Task'),
+                                  ),
                                   content: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: AppColorPalette
+                                          .todoAddScreenBackgroundColor,
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: AppColorPalette
+                                            .todoAddScreenBackgroundColor,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 8),
+                                        EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         tast2 = value;
@@ -308,12 +341,26 @@ class _TodoScreenState extends State<TodoScreen> {
                                     ),
                                   ),
                                   actions: <Widget>[
-                                    TextButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        setModalState(() {});
-                                      },
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: AppColorPalette
+                                                    .todoAddScreenButtonColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              setModalState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
@@ -324,14 +371,11 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.grey.shade300,
-                        width: 1.0,
-                      ),
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Row(
@@ -341,7 +385,7 @@ class _TodoScreenState extends State<TodoScreen> {
                             'Task: ${todo.text3}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: AppColorPalette.todoAddScreenTextColor,
                             ),
                           ),
                         ),
@@ -353,18 +397,23 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Current Task'),
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Current Task'),
+                                  ),
                                   content: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: AppColorPalette
+                                          .todoAddScreenBackgroundColor,
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: AppColorPalette
+                                            .todoAddScreenBackgroundColor,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 8),
+                                        EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         tast3 = value;
@@ -382,12 +431,26 @@ class _TodoScreenState extends State<TodoScreen> {
                                     ),
                                   ),
                                   actions: <Widget>[
-                                    TextButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        setModalState(() {});
-                                      },
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: AppColorPalette
+                                                    .todoAddScreenButtonColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              setModalState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
@@ -398,10 +461,11 @@ class _TodoScreenState extends State<TodoScreen> {
                       ],
                     ),
                   ),
+                  Spacer(),
                   ElevatedButton(
                     child:
-                    Text('Update', style: TextStyle(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(primary: Colors.green),
+                        Text('Update', style: TextStyle(color: AppColorPalette.todoAddScreenButtonTextColor)),
+                    style: ElevatedButton.styleFrom(backgroundColor: AppColorPalette.todoUpdateScreenButtonColor[1]),
                     onPressed: () {
                       updateTodo(todo);
                     },
@@ -487,7 +551,7 @@ class _TodoScreenState extends State<TodoScreen> {
                               final selectedDate = await showDatePicker(
                                   context: context,
                                   initialDate:
-                                  selectedTodo?.alarmDateTime ?? now,
+                                      selectedTodo?.alarmDateTime ?? now,
                                   firstDate: now,
                                   lastDate: DateTime(2101),
                                   locale: const Locale('tr', 'TR'));
@@ -513,7 +577,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                 );
                                 _alarmTime = selectedDateTime;
                                 setModalState(
-                                      () {
+                                  () {
                                     _alarmTimeString = DateFormat('HH:mm')
                                         .format(selectedDateTime);
                                   },
@@ -525,7 +589,7 @@ class _TodoScreenState extends State<TodoScreen> {
                               style: TextStyle(
                                   fontSize: 40,
                                   color:
-                                  AppColorPalette.todoAddScreenTextColor),
+                                      AppColorPalette.todoAddScreenTextColor),
                             ),
                           ),
                         )
@@ -558,18 +622,25 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Başlık'),
+                                  backgroundColor: AppColorPalette
+                                      .todoAddScreenBackgroundColor,
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Title'),
+                                  ),
                                   content: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: AppColorPalette
+                                          .todoAddScreenBackgroundColor,
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: AppColorPalette
+                                            .todoAddScreenBackgroundColor,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 8),
+                                        EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         _selectedTodoTitle = value;
@@ -579,18 +650,32 @@ class _TodoScreenState extends State<TodoScreen> {
                                       ),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Başlık Ekle',
+                                        hintText: 'Add Title',
                                       ),
                                     ),
                                   ),
                                   actions: <Widget>[
-                                    TextButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        setModalState(() {});
-                                      },
-                                    ),
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: AppColorPalette
+                                                    .todoAddScreenButtonColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              setModalState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 );
                               },
@@ -625,18 +710,25 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Görev Ekle'),
+                                  backgroundColor: AppColorPalette
+                                      .todoAddScreenBackgroundColor,
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Add Task'),
+                                  ),
                                   content: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: AppColorPalette
+                                          .todoAddScreenBackgroundColor,
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: AppColorPalette
+                                            .todoAddScreenBackgroundColor,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 8),
+                                        EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         _selectedText1 = value;
@@ -646,17 +738,31 @@ class _TodoScreenState extends State<TodoScreen> {
                                       ),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Görev 1',
+                                        hintText: 'Task 1',
                                       ),
                                     ),
                                   ),
                                   actions: <Widget>[
-                                    TextButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        setModalState(() {});
-                                      },
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: AppColorPalette
+                                                    .todoAddScreenButtonColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              setModalState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
@@ -692,18 +798,23 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Görev Ekle'),
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Add Task'),
+                                  ),
                                   content: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: AppColorPalette
+                                          .todoAddScreenBackgroundColor,
                                       border: Border.all(
-                                        color: Colors.grey.shade300,
+                                        color: AppColorPalette
+                                            .todoAddScreenBackgroundColor,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 8),
+                                        EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         _selectedText2 = value;
@@ -713,17 +824,31 @@ class _TodoScreenState extends State<TodoScreen> {
                                       ),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Görev 2',
+                                        hintText: 'Task 2',
                                       ),
                                     ),
                                   ),
                                   actions: <Widget>[
-                                    TextButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        setModalState(() {});
-                                      },
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: AppColorPalette
+                                                    .todoAddScreenButtonColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              setModalState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
@@ -759,7 +884,10 @@ class _TodoScreenState extends State<TodoScreen> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Görev Ekle'),
+                                  title: Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Add Task'),
+                                  ),
                                   content: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -770,7 +898,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding:
-                                    EdgeInsets.symmetric(horizontal: 8),
+                                        EdgeInsets.symmetric(horizontal: 8),
                                     child: TextField(
                                       onChanged: (value) {
                                         _selectedText3 = value;
@@ -780,17 +908,31 @@ class _TodoScreenState extends State<TodoScreen> {
                                       ),
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: 'Görev 3',
+                                        hintText: 'Task 3',
                                       ),
                                     ),
                                   ),
                                   actions: <Widget>[
-                                    TextButton(
-                                      child: Text('OK'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        setModalState(() {});
-                                      },
+                                    Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          TextButton(
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                color: AppColorPalette
+                                                    .todoAddScreenButtonColor,
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              setModalState(() {});
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
@@ -835,7 +977,7 @@ class _TodoScreenState extends State<TodoScreen> {
                             child: Text(
                               '$value minutes ago,',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           );
@@ -889,7 +1031,8 @@ class _TodoScreenState extends State<TodoScreen> {
                     icon: Icon(Icons.alarm),
                     label: Text('Save'),
                     backgroundColor: AppColorPalette.alaramAddScreenButtonColor,
-                    foregroundColor: AppColorPalette.alaramAddScreenButtonTextColor,
+                    foregroundColor:
+                        AppColorPalette.alaramAddScreenButtonTextColor,
                   ),
                   SizedBox(height: 20),
                 ],
@@ -1095,8 +1238,8 @@ class _TodoScreenState extends State<TodoScreen> {
     AlarmNotificationManager.cancelAllNotifications();
   }
 
-  Future<void> scheduleAlarm(DateTime scheduledNotificationDateTime,
-      int alarmDateTimeId) async {
+  Future<void> scheduleAlarm(
+      DateTime scheduledNotificationDateTime, int alarmDateTimeId) async {
     await AndroidAlarmManager.oneShotAt(
       scheduledNotificationDateTime,
       alarmDateTimeId,
@@ -1110,7 +1253,7 @@ class _TodoScreenState extends State<TodoScreen> {
   static Future<void> alarmCallback(int alarmDateTimeId) async {
     TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
     var todo =
-    await todoDatabaseManager.getTodoByAlarmDateTimeId(alarmDateTimeId);
+        await todoDatabaseManager.getTodoByAlarmDateTimeId(alarmDateTimeId);
     String soundMusicPath = getSoundPath(todo!.soundPath!);
 
     AlarmNotificationManager.displayAlarmWithAction(
@@ -1122,8 +1265,8 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
-  Future<void> scheduleReminder(DateTime scheduledNotificationDateTime,
-      int reminderAlarmId) async {
+  Future<void> scheduleReminder(
+      DateTime scheduledNotificationDateTime, int reminderAlarmId) async {
     await AndroidAlarmManager.oneShotAt(
       scheduledNotificationDateTime,
       reminderAlarmId,
@@ -1137,7 +1280,7 @@ class _TodoScreenState extends State<TodoScreen> {
   static Future<void> alarmReminderCallback(int reminderAlarmId) async {
     TodoDatabaseManager todoDatabaseManager = TodoDatabaseManager();
     var todo =
-    await todoDatabaseManager.getTodoByReminderAlarmId(reminderAlarmId);
+        await todoDatabaseManager.getTodoByReminderAlarmId(reminderAlarmId);
 
     AlarmNotificationManager.sendReminderTodoNotification(
       title: todo!.title!,
@@ -1179,50 +1322,55 @@ class _TodoScreenState extends State<TodoScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                          '${selectedTodo!.alarmDateTime?.day}/${selectedTodo!
-                              .alarmDateTime?.month}/${selectedTodo!
-                              .alarmDateTime?.year}'),
+                        '${selectedTodo!.alarmDateTime?.day}/${selectedTodo!.alarmDateTime?.month}/${selectedTodo!.alarmDateTime?.year}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
                       SizedBox(
                         width: 20,
                       ),
                       Text(
-                          '${selectedTodo!.alarmDateTime?.hour}:${selectedTodo!
-                              .alarmDateTime?.minute}'),
+                        '${selectedTodo!.alarmDateTime?.hour}:${selectedTodo!.alarmDateTime?.minute}',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
                     ],
                   ),
+                  SizedBox(height: 10),
                   if (selectedTodo?.text1?.isNotEmpty == true)
                     buildStatusItem(
                         'Task : ${selectedTodo?.text1}', _selectedText1Status,
-                            (newValue) {
-                          _selectedText1Status = newValue;
-                          selectedTodo.text1Status = _selectedText1Status;
-                          setModalState(() {});
-                        }),
+                        (newValue) {
+                      _selectedText1Status = newValue;
+                      selectedTodo.text1Status = _selectedText1Status;
+                      setModalState(() {});
+                    }),
                   if (selectedTodo?.text2?.isNotEmpty == true)
                     buildStatusItem(
                         'Task : ${selectedTodo?.text2}', _selectedText2Status,
-                            (newValue) {
-                          _selectedText2Status = newValue;
-                          selectedTodo.text2Status = _selectedText2Status;
-                          setModalState(() {});
-                        }),
+                        (newValue) {
+                      _selectedText2Status = newValue;
+                      selectedTodo.text2Status = _selectedText2Status;
+                      setModalState(() {});
+                    }),
                   if (selectedTodo?.text3?.isNotEmpty == true)
                     buildStatusItem(
                       'Task : ${selectedTodo?.text3}',
                       _selectedText3Status,
-                          (newValue) {
+                      (newValue) {
                         _selectedText3Status = newValue;
                         selectedTodo.text3Status = _selectedText3Status;
                         setModalState(() {});
                       },
                     ),
+                  SizedBox(height: 10),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
                         child: Text('Delete',
-                            style: TextStyle(color: Colors.white)),
-                        style: ElevatedButton.styleFrom(primary: Colors.red),
+                            style: TextStyle(color: AppColorPalette.alaramAddScreenButtonTextColor)),
+                        style: ElevatedButton.styleFrom(backgroundColor: AppColorPalette.todoUpdateScreenButtonColor[0]),
                         onPressed: () {
                           deleteTodo(selectedTodo?.id);
                         },
@@ -1232,8 +1380,8 @@ class _TodoScreenState extends State<TodoScreen> {
                       ),
                       ElevatedButton(
                         child: Text('Update',
-                            style: TextStyle(color: Colors.white)),
-                        style: ElevatedButton.styleFrom(primary: Colors.green),
+                            style: TextStyle(color: AppColorPalette.alaramAddScreenButtonTextColor)),
+                        style: ElevatedButton.styleFrom(backgroundColor: AppColorPalette.todoUpdateScreenButtonColor[1]),
                         onPressed: () {
                           openTodoUpdateBottomSheet(selectedTodo);
                         },
@@ -1243,8 +1391,8 @@ class _TodoScreenState extends State<TodoScreen> {
                       ),
                       ElevatedButton(
                         child: Text(' Save ',
-                            style: TextStyle(color: Colors.white)),
-                        style: ElevatedButton.styleFrom(primary: Colors.blue),
+                            style: TextStyle(color: AppColorPalette.alaramAddScreenButtonTextColor)),
+                        style: ElevatedButton.styleFrom(backgroundColor: AppColorPalette.todoUpdateScreenButtonColor[2]),
                         onPressed: () {
                           updateTodo(selectedTodo!);
                         },
@@ -1260,8 +1408,8 @@ class _TodoScreenState extends State<TodoScreen> {
     );
   }
 
-  Widget buildStatusItem(String title, int status,
-      Function(int) onStatusChanged) {
+  Widget buildStatusItem(
+      String title, int status, Function(int) onStatusChanged) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -1332,7 +1480,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       bool isCompleted = false;
 
                       if ((todo?.text1?.isNotEmpty == true &&
-                          todo?.text1Status == 1) ||
+                              todo?.text1Status == 1) ||
                           (todo?.text2?.isNotEmpty == true &&
                               todo?.text2Status == 1) ||
                           (todo?.text3?.isNotEmpty == true &&
@@ -1342,13 +1490,13 @@ class _TodoScreenState extends State<TodoScreen> {
 
                       // Tüm metin alanlarının boş olup olmadığını kontrol et
                       if ((todo?.text1?.isEmpty == true ||
-                          todo?.text1Status == 0) &&
+                              todo?.text1Status == 0) &&
                           (todo?.text2?.isEmpty == true ||
                               todo?.text2Status == 0) &&
                           (todo?.text3?.isEmpty == true ||
                               todo?.text3Status == 0)) {
                         isCompleted =
-                        false; // Eğer tüm alanlar boşsa veya tamamlanmamışsa
+                            false; // Eğer tüm alanlar boşsa veya tamamlanmamışsa
                       }
 
                       if (isCompleted) {
@@ -1358,7 +1506,7 @@ class _TodoScreenState extends State<TodoScreen> {
                       return GestureDetector(
                         onTap: () {
                           setState(
-                                () {
+                            () {
                               _expandedList[index] = !_expandedList[index];
                             },
                           );
@@ -1380,20 +1528,20 @@ class _TodoScreenState extends State<TodoScreen> {
                                         horizontal: 20.0, vertical: 8.0),
                                     leading: _expandedList[index]
                                         ? Icon(Icons.keyboard_arrow_up,
-                                        color: AppColorPalette
-                                            .todoTextColor[
-                                        1]) // Genişletildiğinde gösterilecek ikon
+                                            color: AppColorPalette
+                                                    .todoTextColor[
+                                                1]) // Genişletildiğinde gösterilecek ikon
                                         : Icon(Icons.keyboard_arrow_down,
-                                        color: AppColorPalette
-                                            .todoTextColor[1]),
+                                            color: AppColorPalette
+                                                .todoTextColor[1]),
                                     title: Text(
                                       todo?.title ?? 'Default Title',
                                       style: TextStyle(
                                         color: AppColorPalette.todoTextColor[1],
                                         fontWeight: FontWeight.bold,
                                         decoration: (todo?.todoStatus == 1
-                                            ? true
-                                            : false)
+                                                ? true
+                                                : false)
                                             ? TextDecoration.lineThrough
                                             : TextDecoration.none,
                                       ),
@@ -1405,13 +1553,13 @@ class _TodoScreenState extends State<TodoScreen> {
                                         icon: Icon(
                                           Icons.edit,
                                           color:
-                                          AppColorPalette.todoTextColor[1],
+                                              AppColorPalette.todoTextColor[1],
                                         ))),
                                 AnimatedCrossFade(
                                   firstChild: Container(),
                                   secondChild: Padding(
                                     padding:
-                                    EdgeInsets.symmetric(vertical: 8.0),
+                                        EdgeInsets.symmetric(vertical: 8.0),
                                     child: buildExpandableContent(
                                         todo!), // İçeriği Eklenecek
                                   ),
