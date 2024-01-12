@@ -79,7 +79,7 @@ class _ClockScreenState extends State<ClockScreen> {
                       const Align(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          'Saat',
+                          'Clock',
                           style: TextStyle(
                             color: Color(0xFFCEC7BF),
                             fontSize: 30,

@@ -76,14 +76,14 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
         if (currentMode == 'Pomodoro') {
           pomodoroCounter += 1;
           if (pomodoroCounter % 4 == 0) {
-            setTimerDuration(longBreakDuration, 'Uzun Ara');
+            setTimerDuration(longBreakDuration, 'Long Break');
           } else {
-            setTimerDuration(shortBreakDuration, 'Kısa Ara');
+            setTimerDuration(shortBreakDuration, 'Short Break');
           }
-        } else if (currentMode == 'Uzun Ara') {
+        } else if (currentMode == 'Long Break') {
           pomodoroCounter = 0;
           setTimerDuration(pomodoroDuration, 'Pomodoro');
-        } else if (currentMode == 'Kısa Ara') {
+        } else if (currentMode == 'Short Break') {
           setTimerDuration(pomodoroDuration, 'Pomodoro');
         }
       } else {
@@ -98,13 +98,13 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
 
     switch (currentMode) {
       case 'Pomodoro':
-        alertTitle = 'Süreniz doldu!';
-        alertContent = 'Şimdi biraz dinlenme zamanı';
+        alertTitle = 'Your time is up!';
+        alertContent = 'Now it\'s time to get some rest';
         break;
-      case 'Kısa Ara':
-      case 'Uzun Ara':
-        alertTitle = 'Süreniz doldu!';
-        alertContent = 'Çalışma Zamanı';
+      case 'Short Break':
+      case 'Long Break':
+        alertTitle = 'Your time is up!';
+        alertContent = 'Working time';
         break;
     }
 
@@ -132,7 +132,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 const SizedBox(height: 20),
                 Center(
                   child: TextButton(
-                    child: const Text('Tamam'),
+                    child: const Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -154,7 +154,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
           backgroundColor: Color(0xFF3D737F),
           title: const Center(
             child: Text(
-              'Ayarlar',
+              'Settings',
               style: TextStyle(
                 color: Color(0xFFCEC7BF),
                 fontSize: 25,
@@ -168,7 +168,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 TextFormField(
                   controller: pomodoroDurationController,
                   decoration: const InputDecoration(
-                    labelText: 'Pomodoro Süresi (20-60 dak)',
+                    labelText: 'Pomodoro Duration (20-60 min)',
                     labelStyle: TextStyle(
                       color: Color(0xFFCEC7BF),
                       fontWeight: FontWeight.w500,
@@ -191,7 +191,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 TextFormField(
                   controller: shortBreakDurationController,
                   decoration: const InputDecoration(
-                    labelText: 'Kısa Ara Süresi (5-20 dak)',
+                    labelText: 'Short Break Duration (5-20 min)',
                     labelStyle: TextStyle(
                       color: Color(0xFFCEC7BF),
                       fontWeight: FontWeight.w500,
@@ -212,7 +212,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                 TextFormField(
                   controller: longBreakDurationController,
                   decoration: const InputDecoration(
-                    labelText: 'Uzun Ara Süresi (15-40 dak)',
+                    labelText: 'Long Break Duration (15-40 min)',
                     labelStyle: TextStyle(
                       color: Color(0xFFCEC7BF),
                       fontWeight: FontWeight.w500,
@@ -237,7 +237,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
             TextButton(
               child: const Center(
                 child: Text(
-                  'Tamam',
+                  'OK',
                   style: TextStyle(
                     color: Color(0xFFCEC7BF),
                     fontSize: 20,
@@ -259,7 +259,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Center(
-                        child: Text('Lütfen geçerli bir dakika belirleyiniz'),
+                        child: Text('Please specify a valid minute'),
                       ),
                       duration: Duration(seconds: 2),
                     ),
@@ -268,9 +268,9 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                   setState(() {
                     selectedMinutes = newPomodoroDuration;
                     myDuration = Duration(minutes: newPomodoroDuration);
-                    if (currentMode == 'Kısa Ara') {
+                    if (currentMode == 'Short Break') {
                       myDuration = Duration(minutes: newShortBreakDuration);
-                    } else if (currentMode == 'Uzun Ara') {
+                    } else if (currentMode == 'Long Break') {
                       myDuration = Duration(minutes: newLongBreakDuration);
                     }
                   });
@@ -367,7 +367,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                                           shortBreakDurationController.text) ??
                                       5;
                                   setTimerDuration(
-                                      shortBreakDuration, 'Kısa Ara');
+                                      shortBreakDuration, 'Short Break');
                                 },
                                 iconSize: 55,
                                 constraints: const BoxConstraints(
@@ -379,7 +379,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                           ),
                           const SizedBox(height: 5),
                           const Text(
-                            'Kısa Ara',
+                            'Short Break',
                             style: TextStyle(
                                 fontSize: 12, color: Color(0xFFCEC7BF)),
                           ),
@@ -408,7 +408,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                                           longBreakDurationController.text) ??
                                       15;
                                   setTimerDuration(
-                                      longBreakDuration, 'Uzun Ara');
+                                      longBreakDuration, 'Long Break');
                                 },
                                 iconSize: 55,
                                 constraints: const BoxConstraints(
@@ -420,7 +420,7 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
                           ),
                           const SizedBox(height: 5),
                           const Text(
-                            'Uzun Ara',
+                            'Long Break',
                             style: TextStyle(
                                 fontSize: 12, color: Color(0xFFCEC7BF)),
                           ),
